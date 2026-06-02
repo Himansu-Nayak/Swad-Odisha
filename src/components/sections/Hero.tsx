@@ -3,67 +3,55 @@ import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative min-h-[160vh] flex flex-col items-start px-10 md:px-20 pt-[25vh] overflow-hidden">
-      {/* Cinematic Glow */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-[10%] left-[-10%] w-[80vw] h-[80vw] bg-brand-saffron/10 rounded-full blur-[160px]" />
-        <div className="absolute top-[40%] right-[-10%] w-[60vw] h-[60vw] bg-brand-gold/5 rounded-full blur-[140px]" />
+    <section id="home" className="relative min-h-[200vh] flex flex-col items-start px-[8vw] pt-[30vh]">
+      <div className="absolute top-[15vh] right-[8vw] text-right space-y-2 mix-blend-difference z-20">
+        <p className="text-meta">Archive_ID: 2024.OD.01</p>
+        <p className="text-meta">Location: 20.29°N 85.82°E</p>
       </div>
 
-      <div className="relative z-10 w-full max-w-[1800px] mx-auto grid grid-cols-12 gap-5">
-        <div className="col-span-12 lg:col-span-10 space-y-12">
-          <div className="flex items-center gap-5">
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 80 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="h-px bg-brand-saffron" 
-            />
-            <span className="mono-meta text-brand-saffron tracking-[0.8em]">Archive_Protocol_01</span>
-          </div>
+      <div className="relative z-10 space-y-20 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+        >
+          <h1 className="text-title leading-[0.75] tracking-[-0.08em]">
+            SWAD <br /> ODISHA
+          </h1>
+        </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 120 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="massive-text text-white"
+        <div className="grid grid-cols-12 gap-5 w-full">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 2 }}
+            className="col-span-12 lg:col-start-7 lg:col-span-5 space-y-12"
           >
-            SWAD <br/> ODISHA
-          </motion.h1>
-
-          <div className="grid grid-cols-12 gap-5 pt-20">
-             <motion.div 
-               initial={{ opacity: 0 }}
-               whileInView={{ opacity: 1 }}
-               transition={{ delay: 1, duration: 1.5 }}
-               className="col-span-12 lg:col-start-7 lg:col-span-5 space-y-12"
-             >
-                <h2 className="text-3xl md:text-5xl font-['Playfair_Display'] italic text-brand-gold leading-[1.1]">
-                  Capturing the ephemeral soul of <br/> Odia culinary heritage.
-                </h2>
-                <div className="space-y-6 max-w-md">
-                   <p className="text-white/40 text-lg font-light leading-relaxed">
-                      Beyond delivery. An immersive preservation of ancient recipes, slow-cooked by the keepers of tradition.
-                   </p>
-                   <div className="h-px w-full bg-white/10" />
-                   <div className="flex justify-between items-center mono-meta opacity-50">
-                      <span>Ref_20.29N_85.82E</span>
-                      <span>Checksum_Verified</span>
-                   </div>
-                </div>
-             </motion.div>
-          </div>
+            <p className="text-4xl md:text-6xl font-['Playfair_Display'] italic text-white/90 leading-none">
+              A cinematic preservation of Odisha's <span className="text-[#FF4D00]">living soul</span>.
+            </p>
+            
+            <div className="space-y-8 max-w-md">
+              <p className="text-white/30 text-lg font-light leading-snug tracking-tight">
+                We capture the ephemeral flavors of tradition before they vanish. Handcrafted by mothers, delivered to the modern doorstep.
+              </p>
+              <div className="flex items-center gap-10">
+                <button className="group relative py-4 px-10 border border-white/20 hover:border-[#FF4D00] transition-colors overflow-hidden">
+                  <div className="absolute inset-0 bg-[#FF4D00] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.4em]">Initialize_System</span>
+                </button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Hero Bottom Interaction Indicator */}
+      {/* Extreme Parallax Elements */}
       <motion.div 
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-20 left-20 hidden md:block"
+        style={{ y: 200 }}
+        className="absolute bottom-[20vh] left-[-5vw] pointer-events-none opacity-[0.03]"
       >
-        <div className="w-[1px] h-24 bg-gradient-to-b from-brand-saffron to-transparent mx-auto" />
-        <span className="mono-meta block mt-4 rotate-90 origin-left ml-1 translate-x-1">Vertical_Scroll</span>
+        <span className="text-[50vw] font-black leading-none">HERITAGE</span>
       </motion.div>
     </section>
   );
