@@ -5,8 +5,11 @@ import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { CartSidebar } from '../sections/CartSidebar';
 
+import { motion, useScroll } from 'framer-motion';
+
 export const Header: React.FC = () => {
   const { cartCount } = useCart();
+  const { scrollYProgress } = useScroll();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navLinks = [
@@ -24,6 +27,10 @@ export const Header: React.FC = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-charcoal/80 backdrop-blur-md border-b border-brand-saffron/10 transition-transform duration-300">
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] bg-brand-saffron origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3 group cursor-pointer" onClick={() => scrollTo('#home')}>

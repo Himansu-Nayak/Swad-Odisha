@@ -11,6 +11,8 @@ import { Toaster } from 'sonner';
 
 import { ParticleCanvas } from './components/sections/ParticleCanvas';
 
+import { ChefScenes } from './components/sections/ChefScenes';
+
 export default function App() {
   return (
     <CartProvider>
@@ -20,12 +22,13 @@ export default function App() {
         <Header />
         <main className="relative z-10">
           <Hero />
-          <DeliveryBanner />
           <WhyUs />
+          <ChefScenes />
           <Menu />
           <About />
           <Testimonials />
         </main>
+        <DeliveryBanner />
         <Footer />
       </div>
     </CartProvider>

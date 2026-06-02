@@ -31,40 +31,48 @@ const testimonials = [
 
 export const Testimonials: React.FC = () => {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-32 bg-brand-charcoal relative overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl font-bold text-brand-charcoal">
-            Loved by Our <span className="text-brand-saffron">Community</span>
-          </h2>
-          <p className="text-brand-charcoal/60">
-            Don't just take our word for it — hear from those who've experienced the magic of Swad Odisha.
-          </p>
-        </div>
+        <div className="max-w-4xl mx-auto space-y-20">
+          <div className="text-center space-y-4">
+            <span className="text-brand-saffron text-sm font-bold uppercase tracking-[0.4em]">04 — Community</span>
+            <h2 className="text-5xl md:text-7xl font-['Playfair_Display'] font-bold text-white">
+              Loved by the <span className="text-brand-gold italic">Soul.</span>
+            </h2>
+          </div>
 
-        <div className="flex overflow-x-auto pb-12 gap-6 no-scrollbar snap-x">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="min-w-[300px] md:min-w-[400px] bg-brand-warm/50 p-8 rounded-[2.5rem] snap-center border border-brand-charcoal/5 relative"
-            >
-              <Quote className="absolute top-6 right-8 w-12 h-12 text-brand-saffron/10" />
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-4 h-4 ${i < Math.floor(t.rating) ? 'fill-brand-gold text-brand-gold' : 'text-brand-charcoal/20'}`} />
-                ))}
-              </div>
-              <p className="text-lg text-brand-charcoal/80 mb-6 italic leading-relaxed">"{t.text}"</p>
-              <div>
-                <h4 className="font-bold text-brand-charcoal">{t.name}</h4>
-                <p className="text-sm text-brand-charcoal/40 font-medium uppercase tracking-widest">{t.city}</p>
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid gap-12">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
+                className="relative p-12 bg-white/5 border border-white/5 group hover:border-brand-saffron/20 transition-all duration-700"
+              >
+                <Quote className="absolute top-8 right-12 w-24 h-24 text-brand-saffron/5 group-hover:text-brand-saffron/10 transition-colors" />
+                
+                <div className="flex gap-1 mb-8">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`w-3 h-3 ${i < Math.floor(t.rating) ? 'fill-brand-gold text-brand-gold' : 'text-white/10'}`} />
+                  ))}
+                </div>
+
+                <p className="text-3xl font-['Playfair_Display'] text-white/80 mb-10 leading-tight italic max-w-2xl">
+                  "{t.text}"
+                </p>
+
+                <div className="flex items-center gap-6">
+                   <div className="h-px w-8 bg-brand-saffron/30" />
+                   <div>
+                      <h4 className="font-bold text-white tracking-widest text-xs uppercase">{t.name}</h4>
+                      <p className="text-[10px] text-brand-warm/30 font-bold uppercase tracking-[0.2em]">{t.city}</p>
+                   </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
