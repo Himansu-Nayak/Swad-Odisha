@@ -1,0 +1,68 @@
+import { MenuItem } from '../types';
+
+export const MENU_ITEMS: MenuItem[] = [
+  {
+    id: '1',
+    name: 'Pakhala Bhata',
+    description: "Odisha's iconic summer staple. Fermented rice served with accompaniments.",
+    price: 99,
+    category: 'Veg',
+    isVeg: true,
+  },
+  {
+    id: '2',
+    name: 'Chhena Poda',
+    description: 'The original cheesecake of India. Caramelized cottage cheese dessert.',
+    price: 149,
+    category: 'Sweets',
+    isVeg: true,
+  },
+  {
+    id: '3',
+    name: 'Dalma',
+    description: 'Soul food of every Odia household. Lentils cooked with seasonal vegetables.',
+    price: 129,
+    category: 'Veg',
+    isVeg: true,
+  },
+  {
+    id: '4',
+    name: 'Machha Besara',
+    description: 'River fish cooked in a sharp and aromatic mustard-turmeric gravy.',
+    price: 249,
+    category: 'Non-Veg',
+    isVeg: false,
+  },
+  {
+    id: '5',
+    name: 'Santula',
+    description: 'Nutritious everyday classic. Light steamed vegetable medley.',
+    price: 119,
+    category: 'Veg',
+    isVeg: true,
+  },
+  {
+    id: '6',
+    name: 'Rasabali',
+    description: 'Divine sweet from Kendrapara. Flattened cottage cheese discs in thickened milk.',
+    price: 169,
+    category: 'Sweets',
+    isVeg: true,
+  },
+  {
+    id: '7',
+    name: 'Chhena Jhili',
+    description: "Odisha's answer to gulab jamun. Soft paneer donuts in sugar syrup.",
+    price: 139,
+    category: 'Sweets',
+    isVeg: true,
+  },
+  {
+    id: '8',
+    name: 'Pitha Platter',
+    description: 'Festival special. Assorted rice-flour dumplings: Arisha, Manda, Enduri.',
+    price: 199,
+    category: 'Specials',
+    isVeg: true,
+  },
+];
