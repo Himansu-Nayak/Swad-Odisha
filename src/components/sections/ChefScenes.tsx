@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { SplitText } from '../ui/SplitText';
 
 const chefs = [
   {
@@ -46,16 +47,17 @@ export const ChefScenes: React.FC = () => {
 
                <div className="relative z-10 grid lg:grid-cols-12 gap-10">
                   <div className="lg:col-span-8 space-y-20">
-                     <div className="space-y-4">
+                     <div className="space-y-4 text-left">
                         <div className="flex items-center gap-6">
                            <span className="hud-text text-[#FF4D00]">The_Keepers</span>
                            <div className="h-px grow bg-white/5" />
                            <span className="hud-text">{chef.id}</span>
                         </div>
-                        <h2 className="text-[12vw] font-black text-white leading-[0.75] uppercase tracking-tighter">
-                           {chef.name} <br/>
-                           <span className="text-white/10 italic">{chef.last}</span>
-                        </h2>
+                        <SplitText 
+                          text={`${chef.name} ${chef.last}`}
+                          className="text-[12vw] font-black text-white leading-[0.75] uppercase tracking-tighter text-left"
+                          delay={0.2}
+                        />
                      </div>
 
                      <div className="grid md:grid-cols-2 gap-20">
@@ -68,7 +70,7 @@ export const ChefScenes: React.FC = () => {
                               <span className="hud-text">Archive_Quality_Pass</span>
                            </div>
                         </div>
-                        <div className="flex flex-col justify-end space-y-4">
+                        <div className="flex flex-col justify-end items-start gap-4">
                            <div className="h-px w-full bg-white/10" />
                            <span className="hud-text text-[#FF4D00]">{chef.location}</span>
                            <span className="text-sm font-light text-white/40 uppercase tracking-[0.2em]">{chef.dish}</span>
