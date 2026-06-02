@@ -91,6 +91,7 @@
   }
   body {
     @apply bg-brand-charcoal text-brand-warm antialiased overflow-x-hidden;
+    cursor: none; /* Hide default cursor */
   }
 
   /* Global Mathematical Grid */
@@ -99,9 +100,8 @@
     position: fixed;
     inset: 0;
     background-image: 
-      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 8.333333% 10vh; /* 12 Column Grid */
+      linear-gradient(to right, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 8.333333% 100%; /* 12 Column Grid */
     pointer-events: none;
     z-index: 100;
   }
@@ -115,19 +115,44 @@
     width: 100%;
     height: 100%;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
+    opacity: 0.05;
     pointer-events: none;
     z-index: 9999;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-['Playfair_Display'];
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
   }
 }
 
-.char-reveal {
-  display: inline-block;
-  overflow: hidden;
+.mono {
+  @apply font-mono uppercase tracking-[0.4em] text-[10px] font-bold;
 }
+
+.blend-difference {
+  mix-blend-mode: difference;
+}
+
+/* Vertical Side Nav Line */
+.side-progress-line {
+  position: fixed;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 200px;
+  background: rgba(255,255,255,0.1);
+  z-index: 50;
+}
+
+.side-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #FF6B35;
+  transition: height 0.1s ease-out;
+}
+
 

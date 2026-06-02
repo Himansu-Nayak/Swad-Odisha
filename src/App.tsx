@@ -15,6 +15,7 @@ import { ChefScenes } from './components/sections/ChefScenes';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { CinematicLoader } from './components/ui/CinematicLoader';
 import { AnimatePresence } from 'framer-motion';
+import { SideNav } from './components/layout/SideNav';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +24,7 @@ export default function App() {
     <CartProvider>
       <div className="min-h-screen bg-brand-charcoal text-brand-warm selection:bg-brand-saffron/30 selection:text-brand-saffron font-['Inter']">
         <CustomCursor />
+        <SideNav />
         <AnimatePresence>
           {isLoading && <CinematicLoader onComplete={() => setIsLoading(false)} />}
         </AnimatePresence>

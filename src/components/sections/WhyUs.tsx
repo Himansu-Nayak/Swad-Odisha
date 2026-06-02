@@ -23,7 +23,12 @@ const features = [
 export const WhyUs: React.FC = () => {
   return (
     <section className="py-32 relative overflow-hidden bg-brand-charcoal">
-      <div className="container mx-auto px-4">
+      {/* Cinematic Background Label */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-white/[0.01] pointer-events-none select-none uppercase tracking-tighter">
+         Legacy
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row gap-20 items-center">
           <div className="md:w-1/2 space-y-12">
             <motion.div

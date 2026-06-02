@@ -31,24 +31,26 @@ export const CustomCursor: React.FC = () => {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-brand-saffron rounded-full pointer-events-none z-[100] mix-blend-difference"
+        className="fixed top-0 left-0 w-4 h-4 bg-brand-saffron rounded-full pointer-events-none z-[100] blend-difference"
         animate={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
-          scale: isHovering ? 2.5 : 1,
+          x: mousePosition.x - 8,
+          y: mousePosition.y - 8,
+          scale: isHovering ? 4 : 1,
         }}
-        transition={{ type: 'spring', damping: 25, stiffness: 250, mass: 0.5 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 400, mass: 0.1 }}
       />
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-brand-saffron/30 rounded-full pointer-events-none z-[100]"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0 : 1,
-        }}
-        transition={{ type: 'spring', damping: 30, stiffness: 200, mass: 0.8 }}
-      />
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-[99]">
+         {isHovering && (
+           <motion.span
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             className="absolute text-[8px] font-black uppercase tracking-widest text-brand-charcoal mix-blend-normal bg-brand-warm px-2 py-1"
+             style={{ left: mousePosition.x + 20, top: mousePosition.y + 20 }}
+           >
+             Action
+           </motion.span>
+         )}
+      </div>
     </>
   );
 };
