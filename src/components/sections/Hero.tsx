@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
 import { Button } from '../ui/button';
-import { ArrowRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
@@ -11,124 +9,86 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen pt-20 overflow-hidden bg-brand-warm flex items-center">
-      {/* Pattachitra-inspired background border decoration */}
-      <div className="absolute inset-0 pointer-events-none opacity-5">
-        <div className="absolute top-0 left-0 right-0 h-16 bg-[radial-gradient(circle_at_center,_var(--brand-saffron)_1px,_transparent_1px)] bg-[length:24px_24px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-[radial-gradient(circle_at_center,_var(--brand-saffron)_1px,_transparent_1px)] bg-[length:24px_24px]" />
-      </div>
-
-      <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+    <section id="home" className="relative min-h-screen pt-20 overflow-hidden flex items-center justify-center text-center">
+      <div className="container mx-auto px-4 relative z-10 space-y-12">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="space-y-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-6"
         >
-          <div className="space-y-4">
-            <motion.span 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-block px-4 py-1 rounded-full bg-brand-saffron/10 text-brand-saffron font-semibold text-sm tracking-wide uppercase"
-            >
-              Odisha's Premium Food Startup
-            </motion.span>
-            <h1 className="text-5xl md:text-7xl font-bold text-brand-charcoal leading-tight">
-              The Taste of Odisha, <br />
-              <span className="text-brand-saffron">Delivered to Your Door.</span>
-            </h1>
-            <p className="text-xl text-brand-charcoal/70 max-w-lg leading-relaxed">
-              From Pakhala Bhata to Chhena Poda — handcrafted by home chefs, delivered fresh. Experience the authentic soul of Odisha.
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: 80 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="h-[1px] bg-brand-saffron mx-auto"
+          />
+          <h1 className="text-[12vw] md:text-[8vw] font-['Playfair_Display'] font-black text-white leading-none tracking-tight uppercase">
+            SWAD ODISHA
+          </h1>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="space-y-4"
+          >
+            <p className="text-xl md:text-3xl font-['Playfair_Display'] italic text-brand-gold tracking-wide">
+              Authentic Flavors of Tradition
             </p>
-          </div>
+            <p className="text-brand-warm/60 max-w-lg mx-auto text-sm md:text-base uppercase tracking-[0.3em] font-light">
+              Home chefs • Ancient recipes • Delivered fresh
+            </p>
+          </motion.div>
+        </motion.div>
 
-          <div className="flex flex-wrap gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="flex flex-col items-center gap-12"
+        >
+          <div className="flex flex-wrap justify-center gap-6">
             <Button 
               size="lg"
               onClick={() => scrollTo('#menu')}
-              className="bg-brand-saffron hover:bg-brand-saffron/90 text-white rounded-full px-8 h-14 text-lg font-bold shadow-xl shadow-brand-saffron/20 transition-transform hover:scale-105"
+              className="bg-brand-saffron hover:bg-brand-saffron/90 text-white rounded-none px-12 h-16 text-xs uppercase tracking-[0.2em] font-bold transition-all hover:tracking-[0.3em]"
             >
-              Explore Menu <ArrowRight className="ml-2 w-5 h-5" />
+              Explore Menu
             </Button>
             <Button 
               variant="outline"
               size="lg"
               onClick={() => scrollTo('#about')}
-              className="border-brand-saffron text-brand-saffron hover:bg-brand-saffron/5 rounded-full px-8 h-14 text-lg font-bold transition-transform hover:scale-105"
+              className="border-white/20 text-white hover:bg-white/5 rounded-none px-12 h-16 text-xs uppercase tracking-[0.2em] font-bold transition-all"
             >
               Our Story
             </Button>
           </div>
 
-          <div className="flex items-center gap-6 pt-4 border-t border-brand-charcoal/5">
-            <div>
-              <p className="text-2xl font-bold text-brand-charcoal">50+</p>
-              <p className="text-sm text-brand-charcoal/50">Home Chefs</p>
-            </div>
-            <div className="w-px h-10 bg-brand-charcoal/10" />
-            <div>
-              <p className="text-2xl font-bold text-brand-charcoal">2k+</p>
-              <p className="text-sm text-brand-charcoal/50">Happy Foodies</p>
-            </div>
-            <div className="w-px h-10 bg-brand-charcoal/10" />
-            <div>
-              <p className="text-2xl font-bold text-brand-charcoal">4.9/5</p>
-              <p className="text-sm text-brand-charcoal/50">Avg Rating</p>
-            </div>
+          <div className="relative group cursor-pointer" onClick={() => scrollTo('#menu')}>
+             <div className="absolute -inset-8 bg-brand-saffron/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+             <svg className="w-48 h-48 md:w-64 md:h-64 animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-brand-saffron/30" strokeDasharray="4 4" />
+                <path d="M50 2 A48 48 0 0 1 98 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-brand-saffron" strokeDasharray="100" strokeDashoffset="100">
+                   <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" fill="freeze" />
+                </path>
+             </svg>
+             <div className="absolute inset-0 flex flex-col items-center justify-center text-brand-warm/40 text-[10px] uppercase tracking-[0.4em] font-bold">
+                <span>Tradition</span>
+                <span className="text-brand-saffron">Soul</span>
+                <span>Taste</span>
+             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative"
-        >
-          <div className="absolute -inset-4 bg-gradient-to-br from-brand-saffron to-brand-gold rounded-full blur-3xl opacity-20 animate-pulse" />
-          <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} perspective={1000} scale={1.02} transitionSpeed={2000}>
-            <div className="relative z-10 p-4">
-              <div className="aspect-square rounded-full bg-gradient-to-br from-brand-saffron to-brand-gold p-2 shadow-2xl flex items-center justify-center overflow-hidden">
-                 <div className="w-full h-full rounded-full border-8 border-brand-warm/30 flex items-center justify-center bg-brand-warm/10 backdrop-blur-sm">
-                    {/* Placeholder for Hero Image */}
-                    <div className="text-center text-brand-warm">
-                      <p className="text-4xl font-bold opacity-80 uppercase tracking-widest">Premium</p>
-                      <p className="text-2xl font-medium opacity-60">Odia Cuisine</p>
-                    </div>
-                 </div>
-              </div>
-              
-              {/* Floating elements */}
-              <motion.div 
-                animate={{ y: [0, -20, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-10 -left-10 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20"
-              >
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-xl">🥬</div>
-                <div>
-                  <p className="font-bold text-sm">Pakhala Bhata</p>
-                  <p className="text-[10px] text-green-600 font-bold uppercase">100% Authentic</p>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                animate={{ y: [0, 20, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-20 -right-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 z-20"
-              >
-                <div className="w-10 h-10 bg-brand-saffron/10 rounded-lg flex items-center justify-center text-xl">🔥</div>
-                <div>
-                  <p className="font-bold text-sm">Chhena Poda</p>
-                  <p className="text-[10px] text-brand-saffron font-bold uppercase">Must Try!</p>
-                </div>
-              </motion.div>
-            </div>
-          </Tilt>
         </motion.div>
       </div>
 
-      {/* Background Decorative Motif */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-gold/5 rounded-full blur-[100px] -mr-48 -mb-48" />
+      <motion.div 
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-brand-warm/20"
+      >
+        <div className="w-[1px] h-16 bg-gradient-to-b from-brand-saffron to-transparent mx-auto" />
+      </motion.div>
     </section>
   );
 };

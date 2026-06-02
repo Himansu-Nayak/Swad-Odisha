@@ -22,34 +22,48 @@ const features = [
 
 export const WhyUs: React.FC = () => {
   return (
-    <section className="py-24 bg-brand-warm/30 relative overflow-hidden">
+    <section className="py-32 relative overflow-hidden bg-brand-charcoal">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <h2 className="text-4xl font-bold text-brand-charcoal">
-            Why Choose <span className="text-brand-saffron">Swad Odisha</span>?
-          </h2>
-          <p className="text-brand-charcoal/60 text-lg">
-            We are more than just a delivery service; we are a bridge to the flavors you grew up with.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+        <div className="flex flex-col md:flex-row gap-20 items-center">
+          <div className="md:w-1/2 space-y-12">
             <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-white p-8 rounded-3xl shadow-xl shadow-brand-charcoal/5 border border-brand-charcoal/5 hover:border-brand-saffron/20 transition-all group"
+              transition={{ duration: 1 }}
+              className="space-y-4"
             >
-              <div className="w-16 h-16 bg-brand-saffron/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-bold text-brand-charcoal mb-3">{feature.title}</h3>
-              <p className="text-brand-charcoal/60 leading-relaxed">{feature.description}</p>
+              <span className="text-brand-saffron text-sm font-bold uppercase tracking-[0.4em]">01 — Origins</span>
+              <h2 className="text-5xl md:text-7xl font-['Playfair_Display'] font-bold text-white leading-tight">
+                Real Odia food has <br />
+                <span className="text-brand-gold italic">almost disappeared.</span>
+              </h2>
+              <p className="text-brand-warm/60 text-lg leading-relaxed max-w-md font-light">
+                Hotel menus serve watered-down versions. Restaurants chase trends. The original recipes — passed down from grandmothers — were slowly vanishing. We refused to let that happen.
+              </p>
             </motion.div>
-          ))}
+          </div>
+
+          <div className="md:w-1/2 grid gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="bg-white/5 backdrop-blur-sm p-8 border border-white/5 hover:border-brand-saffron/30 transition-all group flex items-start gap-6"
+              >
+                <div className="w-12 h-12 rounded-none flex items-center justify-center bg-brand-saffron/10 text-brand-saffron group-hover:scale-110 transition-transform flex-shrink-0">
+                  {feature.icon}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-white tracking-wide">{feature.title}</h3>
+                  <p className="text-brand-warm/40 text-sm leading-relaxed">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

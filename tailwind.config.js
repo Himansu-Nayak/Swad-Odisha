@@ -32,10 +32,11 @@ export default {
           foreground: "#1A1A1A",
         },
         brand: {
-          saffron: "#E8593C",
-          gold: "#EF9F27",
-          warm: "#FFF8F2",
-          charcoal: "#1A1A1A",
+          saffron: "#FF6B35",
+          gold: "#F7C948",
+          charcoal: "#0d0a08",
+          warm: "#F5F0E8",
+          muted: "#8C7B6B",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

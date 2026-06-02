@@ -23,25 +23,22 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-warm/80 backdrop-blur-md border-b border-brand-saffron/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-charcoal/80 backdrop-blur-md border-b border-brand-saffron/10 transition-transform duration-300">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2 group cursor-pointer" onClick={() => scrollTo('#home')}>
-          <div className="w-10 h-10 bg-brand-saffron rounded-lg flex items-center justify-center text-brand-warm font-bold text-xl shadow-lg transition-transform group-hover:rotate-12">
-            SO
+        <div className="flex items-center gap-3 group cursor-pointer" onClick={() => scrollTo('#home')}>
+          <div className="font-['Playfair_Display'] font-bold text-2xl text-brand-saffron tracking-tight">
+            SWAD ODISHA
           </div>
-          <span className="text-brand-charcoal font-bold text-xl tracking-tight hidden sm:block">
-            Swad Odisha
-          </span>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <button
               key={link.name}
               onClick={() => scrollTo(link.href)}
-              className="text-brand-charcoal/70 hover:text-brand-saffron font-medium transition-colors"
+              className="text-brand-warm/60 hover:text-brand-saffron font-medium text-xs uppercase tracking-[0.2em] transition-colors"
             >
               {link.name}
             </button>

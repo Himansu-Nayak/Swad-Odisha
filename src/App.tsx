@@ -9,13 +9,16 @@ import { Footer } from './components/layout/Footer';
 import { CartProvider } from './context/CartContext';
 import { Toaster } from 'sonner';
 
+import { ParticleCanvas } from './components/sections/ParticleCanvas';
+
 export default function App() {
   return (
     <CartProvider>
-      <div className="min-h-screen bg-brand-warm selection:bg-brand-saffron/30 selection:text-brand-saffron">
-        <Toaster position="top-center" />
+      <div className="min-h-screen bg-brand-charcoal text-brand-warm selection:bg-brand-saffron/30 selection:text-brand-saffron font-['Inter']">
+        <ParticleCanvas />
+        <Toaster position="top-center" theme="dark" />
         <Header />
-        <main>
+        <main className="relative z-10">
           <Hero />
           <DeliveryBanner />
           <WhyUs />
