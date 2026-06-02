@@ -17,11 +17,11 @@ export default function App() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.5,
+      duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.8,
+      wheelMultiplier: 0.7,
     });
 
     function raf(time: number) {
@@ -38,7 +38,7 @@ export default function App() {
         cursorRingRef.current.animate({
           left: `${e.clientX}px`,
           top: `${e.clientY}px`
-        }, { duration: 500, fill: 'forwards' });
+        }, { duration: 600, fill: 'forwards', easing: 'cubic-bezier(0.23, 1, 0.32, 1)' });
       }
     };
 
@@ -50,14 +50,38 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative bg-black min-h-screen">
-      <div id="noise-layer" />
-      <div id="grid-layer">
+    <div className="relative bg-[#050403] min-h-screen selection:bg-brand-saffron/30">
+      <div id="film-grain" />
+      <div id="visual-grid">
         {[...Array(12)].map((_, i) => <div key={i} />)}
       </div>
 
-      <div id="cursor-dot" ref={cursorDotRef} />
-      <div id="cursor-ring" ref={cursorRingRef} />
+      {/* Persistent HUD (Heads-Up Display) Parity with 21hrs.space */}
+      <div className="fixed inset-0 z-[1001] pointer-events-none p-[5vw] flex flex-col justify-between">
+         <div className="flex justify-between items-start">
+            <div className="hud-text flex flex-col gap-1">
+               <span>Status: preservation_active</span>
+               <span>Mode: cultural_archive_v4.0</span>
+            </div>
+            <div className="hud-text text-right flex flex-col gap-1">
+               <span>Loc: 20.2961° N, 85.8245° E</span>
+               <span>Bhubaneswar, Odisha</span>
+            </div>
+         </div>
+         <div className="flex justify-between items-end">
+            <div className="hud-text flex flex-col gap-1">
+               <span>Time: {new Date().toLocaleTimeString('en-IN', { hour12: false })} IST</span>
+               <span>Cycle: tradition_restored</span>
+            </div>
+            <div className="hud-text text-right flex flex-col gap-1">
+               <span>Ref: swad_odisha_original</span>
+               <span>Checksum: 8824_Verified</span>
+            </div>
+         </div>
+      </div>
+
+      <div id="cursor-dot" ref={cursorDotRef} className="fixed w-1.5 h-1.5 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+      <div id="cursor-ring" ref={cursorRingRef} className="fixed w-12 h-12 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
       <SideNav />
       <Toaster position="bottom-right" theme="dark" />

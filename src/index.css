@@ -5,51 +5,59 @@
 @layer base {
   :root {
     --accent: #FF4D00;
-    --bg: #000000;
-    --fg: #FFFFFF;
-    --muted: rgba(255, 255, 255, 0.1);
+    --gold: #EF9F27;
+    --bg: #050403;
+    --fg: #F5F0E8;
   }
 
   * {
-    @apply border-white/5;
     box-sizing: border-box;
+    @apply border-white/[0.03];
   }
 
   body {
-    @apply bg-black text-white antialiased overflow-x-hidden;
-    font-family: 'Inter', sans-serif;
+    @apply bg-[#050403] text-[#F5F0E8] antialiased overflow-x-hidden;
     cursor: none;
+    font-family: 'Inter', sans-serif;
   }
 
-  /* Absolute 12-Column Grid System */
-  #grid-layer {
+  /* Cinematic Vignette Overlay */
+  body::before {
+    content: "";
     position: fixed;
     inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
     z-index: 1000;
+  }
+
+  /* Structural 12-Column Grid */
+  #visual-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
     pointer-events: none;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    padding: 0 5vw;
     gap: 1px;
+    opacity: 0.15;
   }
 
-  #grid-layer > div {
-    border-right: 1px solid rgba(255, 255, 255, 0.03);
+  #visual-grid > div {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
     height: 100%;
   }
 
-  #grid-layer > div:first-child {
-    border-left: 1px solid rgba(255, 255, 255, 0.03);
-  }
-
-  /* High-Impact Cinematic Grain */
-  #noise-layer {
+  /* Organic Film Grain */
+  #film-grain {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 9998;
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
     opacity: 0.08;
-    mix-blend-mode: overlay;
+    mix-blend-mode: color-dodge;
   }
 
   h1, h2, h3 {
@@ -57,46 +65,24 @@
     @apply font-black tracking-tighter uppercase;
     line-height: 0.8;
   }
-
-  /* Custom Cursor Parity */
-  #cursor-dot {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10001;
-    transform: translate(-50%, -50%);
-  }
-
-  #cursor-ring {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, border-color 0.3s;
-  }
 }
 
 @layer utilities {
-  .text-title {
-    font-size: clamp(4rem, 22vw, 30rem);
+  .text-poster {
+    font-size: clamp(5rem, 24vw, 35rem);
+    letter-spacing: -0.08em;
   }
 
-  .text-meta {
-    @apply font-mono text-[8px] tracking-[0.5em] uppercase text-white/30;
+  .hud-text {
+    @apply font-mono text-[7px] tracking-[0.6em] uppercase text-white/40;
   }
 
   .blend-diff {
     mix-blend-mode: difference;
   }
 
-  .snap-section {
-    @apply h-screen w-full flex items-center justify-center relative overflow-hidden;
+  .perspective-view {
+    perspective: 2000px;
+    transform-style: preserve-3d;
   }
 }

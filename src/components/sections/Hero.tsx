@@ -3,56 +3,63 @@ import { motion } from 'framer-motion';
 
 export const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative min-h-[200vh] flex flex-col items-start px-[8vw] pt-[30vh]">
-      <div className="absolute top-[15vh] right-[8vw] text-right space-y-2 mix-blend-difference z-20">
-        <p className="text-meta">Archive_ID: 2024.OD.01</p>
-        <p className="text-meta">Location: 20.29°N 85.82°E</p>
-      </div>
+    <section id="home" className="relative min-h-[160vh] flex flex-col items-start px-[5vw] pt-[20vh] overflow-hidden">
+      {/* Structural Saffron Light Burst */}
+      <div className="absolute top-[-10%] left-[-10%] w-[100vw] h-[100vw] bg-brand-saffron/5 blur-[180px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 space-y-20 w-full">
+      <div className="relative z-10 w-full flex flex-col items-start">
+        <div className="flex items-center gap-10 mb-20 ml-2">
+           <motion.div 
+             initial={{ width: 0 }}
+             whileInView={{ width: 120 }}
+             transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
+             className="h-px bg-[#FF4D00]" 
+           />
+           <span className="hud-text text-[#FF4D00] tracking-[1em]">Archive_Entrance_V1</span>
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 150 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative"
         >
-          <h1 className="text-title leading-[0.75] tracking-[-0.08em]">
-            SWAD <br /> ODISHA
+          <h1 className="text-poster text-white whitespace-nowrap">
+            SWAD <br/> ODISHA
           </h1>
+          <div className="absolute top-[20%] right-[-5%] text-white/5 font-['Playfair_Display'] font-black text-[12vw] select-none pointer-events-none">SO</div>
         </motion.div>
 
-        <div className="grid grid-cols-12 gap-5 w-full">
+        <div className="grid grid-cols-12 gap-10 w-full mt-[10vh]">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 1, duration: 2 }}
-            className="col-span-12 lg:col-start-7 lg:col-span-5 space-y-12"
+            className="col-span-12 lg:col-start-7 lg:col-span-6 space-y-20"
           >
-            <p className="text-4xl md:text-6xl font-['Playfair_Display'] italic text-white/90 leading-none">
-              A cinematic preservation of Odisha's <span className="text-[#FF4D00]">living soul</span>.
-            </p>
-            
-            <div className="space-y-8 max-w-md">
-              <p className="text-white/30 text-lg font-light leading-snug tracking-tight">
-                We capture the ephemeral flavors of tradition before they vanish. Handcrafted by mothers, delivered to the modern doorstep.
-              </p>
-              <div className="flex items-center gap-10">
-                <button className="group relative py-4 px-10 border border-white/20 hover:border-[#FF4D00] transition-colors overflow-hidden">
-                  <div className="absolute inset-0 bg-[#FF4D00] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                  <span className="relative z-10 text-[10px] font-black uppercase tracking-[0.4em]">Initialize_System</span>
-                </button>
-              </div>
-            </div>
+             <h2 className="text-4xl md:text-[6vw] font-['Playfair_Display'] italic text-white/90 leading-[0.9] tracking-tighter">
+                Honoring the <br/> <span className="text-[#FF4D00]">sacred recipes</span> <br/> of the east.
+             </h2>
+             
+             <div className="grid md:grid-cols-2 gap-10">
+                <div className="space-y-8">
+                   <p className="text-white/20 text-xl font-light leading-snug">
+                      Preserving the ephemeral soul of Odisha’s culinary heritage before it is erased by modern industry.
+                   </p>
+                   <button className="group h-20 w-full border border-white/10 hover:border-[#FF4D00] flex items-center justify-between px-8 transition-all overflow-hidden relative">
+                      <div className="absolute inset-0 bg-[#FF4D00] -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+                      <span className="relative z-10 hud-text group-hover:text-white transition-colors">Start_Preservation</span>
+                      <span className="relative z-10 text-[#FF4D00] group-hover:text-white transition-colors">→</span>
+                   </button>
+                </div>
+                <div className="flex flex-col justify-end gap-1">
+                   <span className="hud-text">Data_Set: 001_A</span>
+                   <span className="hud-text text-white/10 italic">Odia_Heritage_Protocol_Active</span>
+                </div>
+             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* Extreme Parallax Elements */}
-      <motion.div 
-        style={{ y: 200 }}
-        className="absolute bottom-[20vh] left-[-5vw] pointer-events-none opacity-[0.03]"
-      >
-        <span className="text-[50vw] font-black leading-none">HERITAGE</span>
-      </motion.div>
     </section>
   );
 };

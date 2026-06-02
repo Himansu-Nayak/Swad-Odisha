@@ -3,94 +3,79 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 const chefs = [
   {
-    name: "Saraswati Devi",
-    location: "Cuttack",
+    name: "Saraswati",
+    last: "Devi",
+    location: "Cuttack (20.46°N 85.87°E)",
     dish: "Pakhala Bhata Specialist",
-    story: "Passed down from four generations, her fermented rice technique is a cultural treasure.",
-    rating: "★★★★★"
+    story: "Four generations of tradition. Her spice-grinding technique is a cultural treasure.",
+    id: "ID_ARCH_88"
   },
   {
-    name: "Priya Nayak",
-    location: "Bhubaneswar",
+    name: "Priya",
+    last: "Nayak",
+    location: "Bhubaneswar (20.29°N 85.82°E)",
     dish: "Cheena Poda Expert",
-    story: "Master of the clay oven, she caramelizes cottage cheese into gold.",
-    rating: "★★★★★"
+    story: "Master of the clay oven. Transforming cottage cheese into caramelized gold.",
+    id: "ID_ARCH_24"
   },
   {
-    name: "Meena Sahoo",
-    location: "Puri",
+    name: "Meena",
+    last: "Sahoo",
+    location: "Puri (19.81°N 85.83°E)",
     dish: "Dalma Queen",
-    story: "Her spice-grinding secrets make her Dalma taste like a temple feast.",
-    rating: "★★★★★"
+    story: "Spice-grinding secrets from the temple kitchens, slow-cooked for the soul.",
+    id: "ID_ARCH_16"
   }
 ];
 
 export const ChefScenes: React.FC = () => {
   const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
+  const { scrollYProgress } = useScroll({ target: targetRef });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.6%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-[#030303]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-0 w-[300vw]">
+    <section ref={targetRef} className="relative h-[400vh] bg-black">
+      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+        <motion.div style={{ x }} className="flex w-[300vw] h-full">
           {chefs.map((chef, i) => (
-            <div key={i} className="group relative h-screen w-screen flex-shrink-0 flex items-center justify-center overflow-hidden">
-              {/* Dynamic Lens Flare */}
-              <div className="absolute top-[20%] right-[10%] w-[50vw] h-[50vw] light-leak-gold opacity-30" />
-              
-              <div className="container mx-auto px-[8.333%] grid lg:grid-cols-12 gap-20 items-center relative z-10">
-                <div className="lg:col-span-7 space-y-16">
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    className="space-y-4"
-                  >
-                    <div className="flex items-center gap-4">
-                       <span className="mono-meta text-brand-saffron tracking-[0.8em]">ARCHIVE_STORY_0{i + 1}</span>
-                       <div className="h-px grow bg-white/5" />
-                    </div>
-                    <h2 className="text-[12vw] font-black text-white leading-[0.75] uppercase tracking-tighter">
-                      {chef.name.split(' ')[0]} <br />
-                      <span className="text-white/10 italic">{chef.name.split(' ')[1]}</span>
-                    </h2>
-                  </motion.div>
+            <div key={i} className="relative h-screen w-screen flex-shrink-0 flex flex-col justify-center px-[8vw] border-r border-white/[0.03]">
+               {/* Massive Index Marker */}
+               <div className="absolute top-[10%] left-[8vw] text-[35vh] font-black text-white/[0.015] pointer-events-none select-none leading-none tracking-tighter italic">
+                  0{i + 1}
+               </div>
 
-                  <div className="grid lg:grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                       <div className="flex items-center gap-4">
-                          <span className="text-brand-gold text-sm">{chef.rating}</span>
-                          <span className="mono-meta text-white/20">Master Rating</span>
-                       </div>
-                       <p className="text-3xl font-['Playfair_Display'] text-white/80 leading-tight">
-                          "{chef.story}"
-                       </p>
-                    </div>
-                    <div className="flex flex-col justify-end items-start gap-4">
-                       <span className="mono-meta text-brand-saffron">Region: {chef.location}</span>
-                       <div className="h-px w-full bg-white/10" />
-                       <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40">
-                          Specialization: {chef.dish}
-                       </span>
-                    </div>
+               <div className="relative z-10 grid lg:grid-cols-12 gap-10">
+                  <div className="lg:col-span-8 space-y-20">
+                     <div className="space-y-4">
+                        <div className="flex items-center gap-6">
+                           <span className="hud-text text-[#FF4D00]">The_Keepers</span>
+                           <div className="h-px grow bg-white/5" />
+                           <span className="hud-text">{chef.id}</span>
+                        </div>
+                        <h2 className="text-[12vw] font-black text-white leading-[0.75] uppercase tracking-tighter">
+                           {chef.name} <br/>
+                           <span className="text-white/10 italic">{chef.last}</span>
+                        </h2>
+                     </div>
+
+                     <div className="grid md:grid-cols-2 gap-20">
+                        <div className="space-y-8">
+                           <p className="text-3xl font-['Playfair_Display'] text-white/90 leading-tight italic">
+                              "{chef.story}"
+                           </p>
+                           <div className="flex items-center gap-4">
+                              <span className="text-[#EF9F27]">★★★★★</span>
+                              <span className="hud-text">Archive_Quality_Pass</span>
+                           </div>
+                        </div>
+                        <div className="flex flex-col justify-end space-y-4">
+                           <div className="h-px w-full bg-white/10" />
+                           <span className="hud-text text-[#FF4D00]">{chef.location}</span>
+                           <span className="text-sm font-light text-white/40 uppercase tracking-[0.2em]">{chef.dish}</span>
+                        </div>
+                     </div>
                   </div>
-                </div>
-
-                <div className="lg:col-span-5 flex items-center justify-center">
-                   <div className="relative aspect-[3/4] w-full bg-white/[0.01] border border-white/5 flex items-center justify-center group-hover:border-brand-saffron/20 transition-all duration-1000 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-brand-saffron/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                      <span className="text-white/[0.03] font-black text-9xl group-hover:text-white/5 transition-all duration-1000">SO</span>
-                   </div>
-                </div>
-              </div>
-
-              {/* Background Section Index */}
-              <div className="absolute top-1/2 left-[5%] -translate-y-1/2 text-[40vh] font-black text-white/[0.01] select-none pointer-events-none">
-                 0{i + 1}
-              </div>
+               </div>
             </div>
           ))}
         </motion.div>
