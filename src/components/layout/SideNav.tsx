@@ -1,37 +1,41 @@
 import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const SideNav: React.FC = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const sections = ["Home", "Origins", "Keepers", "Select", "Values", "Voice"];
+  const sections = [
+    { id: "01", name: "Archives" },
+    { id: "02", name: "Keepers" },
+    { id: "03", name: "Library" },
+    { id: "04", name: "Philosophy" },
+    { id: "05", name: "Signal" }
+  ];
 
   return (
-    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[60] hidden lg:flex flex-col items-start gap-12">
+    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[1000] hidden xl:flex flex-col gap-12 blend-diff">
       <div className="flex flex-col gap-6">
-        {sections.map((name, i) => (
-          <div key={i} className="flex items-center gap-4 group cursor-pointer">
-             <span className="text-[7px] font-black text-white/20 group-hover:text-brand-saffron transition-colors">0{i + 1}</span>
-             <div className="h-[1px] w-0 bg-brand-saffron group-hover:w-4 transition-all duration-500" />
-             <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0">{name}</span>
+        {sections.map((s, i) => (
+          <div key={i} className="group flex items-center gap-6 cursor-pointer">
+            <span className="text-[9px] font-black text-white/20 group-hover:text-brand-saffron transition-colors">
+              {s.id}
+            </span>
+            <div className="h-[1px] w-0 bg-brand-saffron group-hover:w-8 transition-all duration-700" />
+            <span className="mono-meta text-white/5 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-700">
+              {s.name}
+            </span>
           </div>
         ))}
       </div>
-
-      <div className="w-[1px] h-32 bg-white/5 relative overflow-hidden ml-[9px]">
+      
+      <div className="h-40 w-px bg-white/5 relative overflow-hidden ml-[9px]">
         <motion.div 
           className="absolute top-0 left-0 w-full bg-brand-saffron origin-top"
-          style={{ height: '100%', scaleY }}
+          animate={{ height: ["0%", "100%", "0%"] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
       </div>
-      
-      <div className="[writing-mode:vertical-lr] text-[7px] uppercase tracking-[0.8em] text-white/10 font-black rotate-180 ml-[6px]">
-        Live_Feed_Active
+
+      <div className="[writing-mode:vertical-lr] mono-meta text-[7px] rotate-180 ml-[6px] opacity-30">
+        System_State_Nominal
       </div>
     </div>
   );

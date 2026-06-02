@@ -1,83 +1,73 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import Lenis from 'lenis';
+import { AnimatePresence } from 'framer-motion';
+import { SideNav } from './components/layout/SideNav';
+import { CustomCursor } from './components/ui/CustomCursor';
+import { CinematicLoader } from './components/ui/CinematicLoader';
 import { Header } from './components/layout/Header';
 import { Hero } from './components/sections/Hero';
 import { WhyUs } from './components/sections/WhyUs';
+import { ChefScenes } from './components/sections/ChefScenes';
 import { Menu } from './components/sections/Menu';
 import { About } from './components/sections/About';
 import { Testimonials } from './components/sections/Testimonials';
-import { DeliveryBanner } from './components/sections/DeliveryBanner';
 import { Footer } from './components/layout/Footer';
-import { CartProvider } from './context/CartContext';
 import { Toaster } from 'sonner';
 
-import { ParticleCanvas } from './components/sections/ParticleCanvas';
-import { ChefScenes } from './components/sections/ChefScenes';
-import { CustomCursor } from './components/ui/CustomCursor';
-import { CinematicLoader } from './components/ui/CinematicLoader';
-import { AnimatePresence, motion } from 'framer-motion';
-import { SideNav } from './components/layout/SideNav';
-
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-
-  const handleComplete = useCallback(() => {
-    setIsLoading(false);
-  }, []);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
-    const handleError = (e: ErrorEvent) => {
-      console.error("Caught error:", e);
-      setHasError(true);
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
     };
-    window.addEventListener('error', handleError);
-    return () => window.removeEventListener('error', handleError);
   }, []);
 
-  if (hasError) {
-    return (
-      <div className="min-h-screen bg-[#0d0a08] text-[#FF6B35] flex items-center justify-center p-12 text-center">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-black uppercase tracking-tighter">System Recovery</h1>
-          <p className="text-white/40 font-mono text-[10px] uppercase tracking-[0.5em]">A cinematic error occurred. Please refresh the viewport.</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-[#0d0a08] text-[#F5F0E8] font-['Inter'] selection:bg-brand-saffron/30">
-        <CustomCursor />
-        <SideNav />
-        
-        <AnimatePresence mode="wait">
-          {isLoading ? (
-            <CinematicLoader key="loader" onComplete={handleComplete} />
-          ) : (
-            <motion.div
-              key="content"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ParticleCanvas />
-              <Toaster position="top-center" theme="dark" />
-              <Header />
-              <main className="relative z-10">
-                <Hero />
-                <WhyUs />
-                <ChefScenes />
-                <Menu />
-                <About />
-                <Testimonials />
-              </main>
-              <DeliveryBanner />
-              <Footer />
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <div className="relative">
+      <div id="noise-overlay" />
+      <div id="grid-overlay">
+        {[...Array(12)].map((_, i) => <div key={i} />)}
       </div>
-    </CartProvider>
+
+      <CustomCursor />
+      <SideNav />
+      <Toaster position="top-center" theme="dark" invert />
+
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <CinematicLoader key="loader" onComplete={() => setIsLoading(false)} />
+        ) : null}
+      </AnimatePresence>
+
+      <Header />
+      <main>
+        <Hero />
+        <WhyUs />
+        <ChefScenes />
+        <Menu />
+        <About />
+        <Testimonials />
+      </main>
+      <Footer />
+    </div>
   );
 }
