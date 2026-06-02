@@ -1,8 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../ui/button';
-
-import { CharacterReveal } from '../ui/CharacterReveal';
 
 export const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
@@ -11,84 +8,76 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen pt-20 overflow-hidden flex items-center justify-center text-center">
-      <div className="container mx-auto px-4 relative z-10 space-y-12">
-        <div className="space-y-6">
+    <section id="home" className="relative min-h-[140vh] pt-40 overflow-hidden flex flex-col items-start px-[8.333%]">
+      {/* Dynamic Light Leak */}
+      <div className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] light-leak-saffron opacity-50" />
+      
+      <div className="relative z-10 w-full">
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center gap-6">
+            <div className="h-px w-20 bg-brand-saffron" />
+            <span className="mono-meta text-brand-saffron">Odisha Culinary Archives</span>
+          </div>
+
           <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: 80 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="h-[1px] bg-brand-saffron mx-auto"
-          />
-          <CharacterReveal 
-            text="SWAD ODISHA" 
-            className="text-[12vw] md:text-[8vw] font-['Playfair_Display'] font-black text-white leading-none tracking-tight uppercase"
-            delay={0.5}
-          />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="space-y-4"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="text-xl md:text-3xl font-['Playfair_Display'] italic text-brand-gold tracking-wide">
-              Authentic Flavors of Tradition
-            </p>
-            <div className="flex items-center justify-center gap-4 text-brand-warm/20 uppercase tracking-[0.4em] text-[10px] font-bold">
-               <span>20.2961° N</span>
-               <div className="w-1 h-1 bg-brand-saffron/30 rounded-full" />
-               <span>85.8245° E</span>
-            </div>
+            <h1 className="massive-text text-white tracking-tighter">
+              SWAD <br/> ODISHA
+            </h1>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-          className="flex flex-col items-center gap-12"
-        >
-          <div className="flex flex-wrap justify-center gap-6">
-            <Button 
-              size="lg"
-              onClick={() => scrollTo('#menu')}
-              className="bg-brand-saffron hover:bg-brand-saffron/90 text-white rounded-none px-12 h-16 text-xs uppercase tracking-[0.2em] font-bold transition-all hover:tracking-[0.3em]"
-            >
-              Explore Menu
-            </Button>
-            <Button 
-              variant="outline"
-              size="lg"
-              onClick={() => scrollTo('#about')}
-              className="border-white/20 text-white hover:bg-white/5 rounded-none px-12 h-16 text-xs uppercase tracking-[0.2em] font-bold transition-all"
-            >
-              Our Story
-            </Button>
-          </div>
+        <div className="grid lg:grid-cols-12 gap-12 mt-20">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1.5 }}
+            className="lg:col-start-7 lg:col-span-5 space-y-12 text-left"
+          >
+            <p className="text-2xl md:text-4xl font-['Playfair_Display'] italic text-brand-gold leading-tight">
+              A cinematic journey through the authentic flavors of tradition.
+            </p>
+            
+            <div className="flex flex-col gap-4 max-w-sm">
+              <p className="text-white/40 text-sm font-light leading-relaxed">
+                Handcrafted by keepers of tradition, delivered to the modern doorstep. Experience the soul of Odia heritage.
+              </p>
+              <div className="h-px w-full bg-white/10" />
+              <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-[0.4em] text-white/20">
+                 <span>Lat: 20.2961° N</span>
+                 <span>Lon: 85.8245° E</span>
+              </div>
+            </div>
 
-          <div className="relative group cursor-pointer" onClick={() => scrollTo('#menu')}>
-             <div className="absolute -inset-8 bg-brand-saffron/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-             <svg className="w-48 h-48 md:w-64 md:h-64 animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-brand-saffron/30" strokeDasharray="4 4" />
-                <path d="M50 2 A48 48 0 0 1 98 50" fill="none" stroke="currentColor" strokeWidth="1" className="text-brand-saffron" strokeDasharray="100" strokeDashoffset="100">
-                   <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" fill="freeze" />
-                </path>
-             </svg>
-             <div className="absolute inset-0 flex flex-col items-center justify-center text-brand-warm/40 text-[10px] uppercase tracking-[0.4em] font-bold">
-                <span>Tradition</span>
-                <span className="text-brand-saffron">Soul</span>
-                <span>Taste</span>
-             </div>
-          </div>
-        </motion.div>
+            <div className="flex gap-12 pt-8">
+              <button 
+                onClick={() => scrollTo('#menu')}
+                className="group relative overflow-hidden h-16 w-16 rounded-full border border-white/20 flex items-center justify-center transition-all hover:border-brand-saffron hover:scale-110"
+              >
+                <div className="absolute inset-0 bg-brand-saffron translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <span className="relative z-10 text-[10px] font-black uppercase tracking-widest group-hover:text-white">Menu</span>
+              </button>
+              <button 
+                onClick={() => scrollTo('#about')}
+                className="group flex flex-col justify-center gap-2"
+              >
+                <span className="text-[10px] font-black uppercase tracking-[0.5em] group-hover:text-brand-saffron transition-colors">Our Story</span>
+                <div className="h-[1px] w-0 bg-brand-saffron group-hover:w-full transition-all duration-500" />
+              </button>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
+      {/* Background Monogram Parallax */}
       <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-brand-warm/20"
+        style={{ y: 100 }}
+        className="absolute bottom-0 right-0 pointer-events-none opacity-[0.02]"
       >
-        <div className="w-[1px] h-16 bg-gradient-to-b from-brand-saffron to-transparent mx-auto" />
+        <span className="text-[40vw] font-black leading-none select-none">SO</span>
       </motion.div>
     </section>
   );

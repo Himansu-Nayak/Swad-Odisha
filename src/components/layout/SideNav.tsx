@@ -9,25 +9,29 @@ export const SideNav: React.FC = () => {
     restDelta: 0.001
   });
 
-  const dots = [0, 1, 2, 3, 4, 5];
+  const sections = ["Home", "Origins", "Keepers", "Select", "Values", "Voice"];
 
   return (
-    <div className="fixed left-12 top-1/2 -translate-y-1/2 z-[60] hidden lg:flex flex-col items-center gap-8">
-      <div className="w-[1px] h-48 bg-white/10 relative overflow-hidden">
+    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[60] hidden lg:flex flex-col items-start gap-12">
+      <div className="flex flex-col gap-6">
+        {sections.map((name, i) => (
+          <div key={i} className="flex items-center gap-4 group cursor-pointer">
+             <span className="text-[7px] font-black text-white/20 group-hover:text-brand-saffron transition-colors">0{i + 1}</span>
+             <div className="h-[1px] w-0 bg-brand-saffron group-hover:w-4 transition-all duration-500" />
+             <span className="text-[7px] font-black uppercase tracking-[0.3em] text-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-x-4 group-hover:translate-x-0">{name}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="w-[1px] h-32 bg-white/5 relative overflow-hidden ml-[9px]">
         <motion.div 
           className="absolute top-0 left-0 w-full bg-brand-saffron origin-top"
           style={{ height: '100%', scaleY }}
         />
       </div>
       
-      <div className="flex flex-col gap-4">
-        {dots.map((dot) => (
-          <div key={dot} className="w-1.5 h-1.5 rounded-full border border-white/20" />
-        ))}
-      </div>
-
-      <div className="[writing-mode:vertical-lr] text-[8px] uppercase tracking-[0.5em] text-white/20 font-bold rotate-180">
-        Scroll to Explore
+      <div className="[writing-mode:vertical-lr] text-[7px] uppercase tracking-[0.8em] text-white/10 font-black rotate-180 ml-[6px]">
+        Live_Feed_Active
       </div>
     </div>
   );

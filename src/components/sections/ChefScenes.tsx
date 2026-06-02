@@ -34,50 +34,62 @@ export const ChefScenes: React.FC = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.6%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-brand-charcoal">
+    <section ref={targetRef} className="relative h-[400vh] bg-[#030303]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div style={{ x }} className="flex gap-0 w-[300vw]">
           {chefs.map((chef, i) => (
-            <div key={i} className="group relative h-screen w-screen flex-shrink-0 flex items-center justify-center overflow-hidden border-r border-white/5">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,107,53,0.05)_0%,_transparent_70%)]" />
+            <div key={i} className="group relative h-screen w-screen flex-shrink-0 flex items-center justify-center overflow-hidden">
+              {/* Dynamic Lens Flare */}
+              <div className="absolute top-[20%] right-[10%] w-[50vw] h-[50vw] light-leak-gold opacity-30" />
               
-              <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-20 items-center">
-                <div className="space-y-12">
+              <div className="container mx-auto px-[8.333%] grid lg:grid-cols-12 gap-20 items-center relative z-10">
+                <div className="lg:col-span-7 space-y-16">
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     className="space-y-4"
                   >
-                    <span className="text-brand-saffron text-sm font-bold uppercase tracking-[0.4em]">Keeper of Tradition — 0{i + 1}</span>
-                    <h2 className="text-6xl md:text-8xl font-['Playfair_Display'] font-black text-white leading-none uppercase">
+                    <div className="flex items-center gap-4">
+                       <span className="mono-meta text-brand-saffron tracking-[0.8em]">ARCHIVE_STORY_0{i + 1}</span>
+                       <div className="h-px grow bg-white/5" />
+                    </div>
+                    <h2 className="text-[12vw] font-black text-white leading-[0.75] uppercase tracking-tighter">
                       {chef.name.split(' ')[0]} <br />
-                      <span className="text-brand-gold italic">{chef.name.split(' ')[1]}</span>
+                      <span className="text-white/10 italic">{chef.name.split(' ')[1]}</span>
                     </h2>
                   </motion.div>
 
-                  <div className="space-y-6 max-w-md">
-                    <div className="flex items-center gap-4">
-                      <div className="h-px w-12 bg-brand-saffron" />
-                      <span className="text-brand-saffron font-bold uppercase tracking-widest text-xs">{chef.location}</span>
-                      <span className="text-brand-gold">{chef.rating}</span>
+                  <div className="grid lg:grid-cols-2 gap-12">
+                    <div className="space-y-6">
+                       <div className="flex items-center gap-4">
+                          <span className="text-brand-gold text-sm">{chef.rating}</span>
+                          <span className="mono-meta text-white/20">Master Rating</span>
+                       </div>
+                       <p className="text-3xl font-['Playfair_Display'] text-white/80 leading-tight">
+                          "{chef.story}"
+                       </p>
                     </div>
-                    <p className="text-2xl font-['Playfair_Display'] text-white/90 leading-tight">
-                      "{chef.story}"
-                    </p>
-                    <p className="text-brand-warm/40 uppercase tracking-[0.2em] text-xs font-bold">
-                      Signature: {chef.dish}
-                    </p>
+                    <div className="flex flex-col justify-end items-start gap-4">
+                       <span className="mono-meta text-brand-saffron">Region: {chef.location}</span>
+                       <div className="h-px w-full bg-white/10" />
+                       <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40">
+                          Specialization: {chef.dish}
+                       </span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="relative aspect-square flex items-center justify-center">
-                   <div className="absolute inset-0 bg-brand-saffron/10 blur-[120px] rounded-full scale-75 animate-pulse" />
-                   <div className="w-3/4 h-3/4 border border-white/10 rounded-full flex items-center justify-center relative z-10 group-hover:border-brand-saffron/30 transition-colors duration-1000">
-                      <div className="w-5/6 h-5/6 border border-white/5 rounded-full flex items-center justify-center">
-                         <span className="text-white/10 font-['Playfair_Display'] font-black text-9xl group-hover:text-brand-saffron/20 transition-colors duration-1000">SO</span>
-                      </div>
+                <div className="lg:col-span-5 flex items-center justify-center">
+                   <div className="relative aspect-[3/4] w-full bg-white/[0.01] border border-white/5 flex items-center justify-center group-hover:border-brand-saffron/20 transition-all duration-1000 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-brand-saffron/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                      <span className="text-white/[0.03] font-black text-9xl group-hover:text-white/5 transition-all duration-1000">SO</span>
                    </div>
                 </div>
+              </div>
+
+              {/* Background Section Index */}
+              <div className="absolute top-1/2 left-[5%] -translate-y-1/2 text-[40vh] font-black text-white/[0.01] select-none pointer-events-none">
+                 0{i + 1}
               </div>
             </div>
           ))}

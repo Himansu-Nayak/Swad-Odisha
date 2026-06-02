@@ -22,53 +22,57 @@ const features = [
 
 export const WhyUs: React.FC = () => {
   return (
-    <section className="py-32 relative overflow-hidden bg-brand-charcoal">
+    <section className="py-60 relative overflow-hidden bg-[#030303] px-[8.333%]">
       {/* Cinematic Background Label */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-black text-white/[0.01] pointer-events-none select-none uppercase tracking-tighter">
+      <div className="absolute top-0 right-[-10%] text-[25vw] font-black text-white/[0.01] pointer-events-none select-none uppercase tracking-tighter">
          Legacy
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row gap-20 items-center">
-          <div className="md:w-1/2 space-y-12">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="space-y-4"
-            >
-              <span className="text-brand-saffron text-sm font-bold uppercase tracking-[0.4em]">01 — Origins</span>
-              <h2 className="text-5xl md:text-7xl font-['Playfair_Display'] font-bold text-white leading-tight">
-                Real Odia food has <br />
-                <span className="text-brand-gold italic">almost disappeared.</span>
-              </h2>
-              <p className="text-brand-warm/60 text-lg leading-relaxed max-w-md font-light">
-                Hotel menus serve watered-down versions. Restaurants chase trends. The original recipes — passed down from grandmothers — were slowly vanishing. We refused to let that happen.
-              </p>
-            </motion.div>
-          </div>
+      <div className="relative z-10 w-full grid lg:grid-cols-12 gap-20">
+        <div className="lg:col-span-6 space-y-20">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-8"
+          >
+            <div className="flex items-center gap-4">
+               <div className="w-2 h-2 bg-brand-saffron rotate-45" />
+               <span className="mono-meta text-brand-saffron">Origins & Ethics</span>
+            </div>
+            <h2 className="text-6xl md:text-8xl font-black text-white leading-[0.85] uppercase">
+              The Real Taste <br />
+              <span className="text-brand-gold italic">Is Vanishing.</span>
+            </h2>
+            <p className="text-white/30 text-xl font-light leading-relaxed max-w-lg">
+              We found the keepers of tradition — mothers and grandmothers who still grind spices by hand and cook over slow flames.
+            </p>
+          </motion.div>
+        </div>
 
-          <div className="md:w-1/2 grid gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="bg-white/5 backdrop-blur-sm p-8 border border-white/5 hover:border-brand-saffron/30 transition-all group flex items-start gap-6"
-              >
-                <div className="w-12 h-12 rounded-none flex items-center justify-center bg-brand-saffron/10 text-brand-saffron group-hover:scale-110 transition-transform flex-shrink-0">
-                  {feature.icon}
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-white tracking-wide">{feature.title}</h3>
-                  <p className="text-brand-warm/40 text-sm leading-relaxed">{feature.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="lg:col-span-6 flex flex-col justify-end space-y-12">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 1 }}
+              className="group border-t border-white/10 pt-12 flex flex-col gap-6"
+            >
+              <div className="flex justify-between items-start">
+                 <span className="mono-meta text-white/20">Module 0{index + 1}</span>
+                 <div className="text-brand-saffron opacity-0 group-hover:opacity-100 transition-opacity">
+                    {feature.icon}
+                 </div>
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-white uppercase tracking-tighter">{feature.title}</h3>
+                <p className="text-white/20 text-sm leading-relaxed max-w-sm">{feature.description}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
