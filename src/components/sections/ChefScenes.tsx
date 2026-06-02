@@ -35,7 +35,7 @@ export const ChefScenes: React.FC = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.6%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-black">
+    <section id="keepers" ref={targetRef} className="relative h-[400vh] bg-black">
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
         <motion.div style={{ x }} className="flex w-[300vw] h-full">
           {chefs.map((chef, i) => (
