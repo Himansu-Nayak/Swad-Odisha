@@ -2,6 +2,7 @@
       "name": "Website for Swadodisha Brand",
       "version": "0.1.0",
       "private": true,
+      "type": "module",
       "dependencies": {
             "@radix-ui/react-accordion": "^1.2.3",
             "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -51,6 +52,7 @@
             "vaul": "^1.1.2"
       },
       "devDependencies": {
+            "@tailwindcss/postcss": "^4.3.0",
             "@types/node": "^20.19.41",
             "@types/react": "^19.2.16",
             "@types/react-dom": "^19.2.3",
