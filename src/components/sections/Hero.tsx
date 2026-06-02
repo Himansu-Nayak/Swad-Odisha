@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/button';
 
+import { CharacterReveal } from '../ui/CharacterReveal';
+
 export const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
@@ -11,35 +13,34 @@ export const Hero: React.FC = () => {
   return (
     <section id="home" className="relative min-h-screen pt-20 overflow-hidden flex items-center justify-center text-center">
       <div className="container mx-auto px-4 relative z-10 space-y-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-6"
-        >
+        <div className="space-y-6">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: 80 }}
             transition={{ delay: 0.5, duration: 1 }}
             className="h-[1px] bg-brand-saffron mx-auto"
           />
-          <h1 className="text-[12vw] md:text-[8vw] font-['Playfair_Display'] font-black text-white leading-none tracking-tight uppercase">
-            SWAD ODISHA
-          </h1>
+          <CharacterReveal 
+            text="SWAD ODISHA" 
+            className="text-[12vw] md:text-[8vw] font-['Playfair_Display'] font-black text-white leading-none tracking-tight uppercase"
+            delay={0.5}
+          />
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 1.5 }}
             className="space-y-4"
           >
             <p className="text-xl md:text-3xl font-['Playfair_Display'] italic text-brand-gold tracking-wide">
               Authentic Flavors of Tradition
             </p>
-            <p className="text-brand-warm/60 max-w-lg mx-auto text-sm md:text-base uppercase tracking-[0.3em] font-light">
-              Home chefs • Ancient recipes • Delivered fresh
-            </p>
+            <div className="flex items-center justify-center gap-4 text-brand-warm/20 uppercase tracking-[0.4em] text-[10px] font-bold">
+               <span>20.2961° N</span>
+               <div className="w-1 h-1 bg-brand-saffron/30 rounded-full" />
+               <span>85.8245° E</span>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
