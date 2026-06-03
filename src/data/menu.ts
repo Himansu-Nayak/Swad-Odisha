@@ -8,6 +8,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 99,
     category: 'Veg',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '2',
@@ -16,6 +17,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 149,
     category: 'Sweets',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '3',
@@ -24,6 +26,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 129,
     category: 'Veg',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '4',
@@ -32,6 +35,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 249,
     category: 'Non-Veg',
     isVeg: false,
+    image: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '5',
@@ -40,6 +44,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 119,
     category: 'Veg',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '6',
@@ -48,6 +53,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 169,
     category: 'Sweets',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '7',
@@ -56,6 +62,7 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 139,
     category: 'Sweets',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1589112106030-85ecfd631844?auto=format&fit=crop&w=1200&q=80'
   },
   {
     id: '8',
@@ -64,5 +71,6 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 199,
     category: 'Specials',
     isVeg: true,
+    image: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?auto=format&fit=crop&w=1200&q=80'
   },
 ];

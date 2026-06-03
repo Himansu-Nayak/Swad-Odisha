@@ -28,14 +28,14 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 150 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative"
+          className="relative group"
         >
           <SplitText 
             text="SWAD ODISHA" 
-            className="text-poster text-white whitespace-nowrap"
+            className="text-poster text-white whitespace-nowrap drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
             delay={0.5}
           />
-          <div className="absolute top-[20%] right-[-5%] text-white/5 font-['Playfair_Display'] font-black text-[12vw] select-none pointer-events-none">SO</div>
+          <div className="absolute top-[20%] right-[-5%] text-white/5 font-['Playfair_Display'] font-black text-[12vw] select-none pointer-events-none italic group-hover:text-[#FF4D00]/10 transition-colors duration-1000">SO</div>
         </motion.div>
 
         <div className="grid grid-cols-12 gap-10 w-full mt-[10vh]">
@@ -56,21 +56,37 @@ export const Hero: React.FC = () => {
                    </p>
                    <button 
                      onClick={() => scrollTo('#menu')}
-                     className="group h-20 w-full border border-white/10 hover:border-[#FF4D00] flex items-center justify-between px-8 transition-all overflow-hidden relative"
+                     className="group h-20 w-full border border-white/10 hover:border-[#FF4D00] flex items-center justify-between px-8 transition-all overflow-hidden relative bg-black/40 backdrop-blur-xl"
                    >
                       <div className="absolute inset-0 bg-[#FF4D00] -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
                       <span className="relative z-10 hud-text group-hover:text-white transition-colors">Start_Preservation</span>
                       <span className="relative z-10 text-[#FF4D00] group-hover:text-white transition-colors">→</span>
                    </button>
                 </div>
-                <div className="flex flex-col justify-end gap-1">
-                   <span className="hud-text">Data_Set: 001_A</span>
+                <div className="flex flex-col justify-end gap-2 border-l border-white/5 pl-8">
+                   <span className="hud-text text-brand-gold">Data_Set: 001_A</span>
                    <span className="hud-text text-white/10 italic">Odia_Heritage_Protocol_Active</span>
                 </div>
              </div>
           </motion.div>
         </div>
       </div>
+
+      {/* Floating Cinematic Food Image (Projection) */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.5, duration: 2 }}
+        className="absolute top-1/2 right-[-5vw] -translate-y-1/2 w-[40vw] aspect-square pointer-events-none"
+      >
+         <div className="relative w-full h-full border border-white/[0.03] bg-white/[0.01] backdrop-blur-3xl overflow-hidden rounded-full p-20 flex items-center justify-center grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-2000">
+            <img 
+              src="/src/assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png" 
+              alt="Premium Odia Cuisine"
+              className="w-full h-full object-contain mix-blend-screen animate-pulse"
+            />
+         </div>
+      </motion.div>
     </section>
   );
 };

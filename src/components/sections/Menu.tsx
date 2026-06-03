@@ -4,6 +4,7 @@ import { MENU_ITEMS } from '../../data/menu';
 import { MenuItem } from '../../types';
 import { toast } from 'sonner';
 import { SplitText } from '../ui/SplitText';
+import { motion } from 'framer-motion';
 
 export const Menu: React.FC = () => {
   const { addToCart } = useCart();
@@ -17,7 +18,6 @@ export const Menu: React.FC = () => {
 
   return (
     <section id="menu" className="relative bg-transparent">
-      {/* 21hrs.space Style: One dish per viewport "beat" */}
       {MENU_ITEMS.map((item, i) => (
         <div key={item.id} className="relative h-[120vh] w-full flex flex-col justify-center px-[8vw] border-b border-white/[0.02]">
            {/* Decorative Background Index */}
@@ -29,9 +29,9 @@ export const Menu: React.FC = () => {
               <div className="lg:col-span-10 space-y-24">
                  <div className="space-y-6">
                     <div className="flex items-center gap-6">
-                       <span className="hud-text text-brand-gold">Artifact_Collection</span>
+                       <span className="hud-text text-brand-gold font-bold">Artifact_Collection</span>
                        <div className="h-px w-20 bg-white/10" />
-                       <span className="hud-text">Ref_ID: {item.id}</span>
+                       <span className="hud-text">Ref_ID: {item.id.padStart(2, '0')}</span>
                     </div>
                     <SplitText 
                       text={item.name}
@@ -67,7 +67,7 @@ export const Menu: React.FC = () => {
                     <div className="lg:col-start-8 lg:col-span-4 flex items-center justify-end">
                        <button 
                          onClick={() => handleAddToCart(item)}
-                         className="group relative h-24 w-full border border-white/10 hover:border-[#FF4D00] transition-all overflow-hidden"
+                         className="group relative h-24 w-full border border-white/10 hover:border-[#FF4D00] transition-all overflow-hidden bg-black/40 backdrop-blur-md"
                        >
                           <div className="absolute inset-0 bg-[#FF4D00] translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                           <span className="relative z-10 hud-text group-hover:text-white transition-colors">Add_To_System</span>
@@ -77,11 +77,36 @@ export const Menu: React.FC = () => {
               </div>
            </div>
            
-           {/* Visual Projection Area (where Three.js would zoom in) */}
-           <div className="absolute right-[5vw] top-1/2 -translate-y-1/2 w-[30vw] h-[40vh] border border-white/[0.03] bg-white/[0.01] flex items-center justify-center">
-              <span className="text-white/5 font-black text-9xl select-none">SO</span>
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-saffron/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-           </div>
+           {/* Visual Projection Area with REAL IMAGE */}
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.8 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+             className="absolute right-[5vw] top-1/2 -translate-y-1/2 w-[35vw] h-[45vh] border border-white/[0.05] bg-white/[0.01] flex items-center justify-center overflow-hidden group shadow-2xl"
+           >
+              {item.image ? (
+                <>
+                  <div className="absolute inset-0 bg-brand-saffron/10 mix-blend-overlay z-10 pointer-events-none" />
+                  <img 
+                    src={item.image} 
+                    alt={item.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000 opacity-60 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                </>
+              ) : (
+                <span className="text-white/5 font-black text-9xl select-none italic">SO</span>
+              )}
+              
+              <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              
+              {/* Corner marks for image frame */}
+              <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-white/20" />
+              <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-white/20" />
+              <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-white/20" />
+              <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/20" />
+           </motion.div>
         </div>
       ))}
     </section>
