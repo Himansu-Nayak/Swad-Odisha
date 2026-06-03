@@ -18,7 +18,6 @@ import { Footer } from './sections/Footer';
 import { Toaster } from 'sonner';
 import { WebGLScene } from './components/canvas/WebGLScene';
 import { CinematicLoader } from './components/ui/CinematicLoader';
-import { CartProvider } from './context/CartContext';
 import { ShoppingCart } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet';
 import { CartSidebar } from './components/CartSidebar';
@@ -35,7 +34,6 @@ const HUDOverlay = () => {
   
   return (
     <div className="fixed inset-0 z-[1001] pointer-events-none p-[5vw] flex flex-col justify-between mix-blend-difference">
-      {/* Top HUD */}
       <div className="flex justify-between items-start pointer-events-auto">
         <div className="flex items-center gap-8">
            <div className="w-14 h-14 bg-white/[0.03] border border-white/5 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-3xl shadow-2xl">
@@ -77,7 +75,6 @@ const HUDOverlay = () => {
         </div>
       </div>
 
-      {/* Bottom HUD */}
       <div className="flex justify-between items-end pointer-events-auto">
         <div className="hud-text flex flex-col gap-1 opacity-20">
           <span>TIME_NODE: {new Date().toLocaleTimeString('en-IN', { hour12: false })} IST</span>
@@ -111,17 +108,19 @@ const MobileOverlay = () => (
 const MainContent = () => (
   <motion.div
     key="content"
-    initial={{ opacity: 0 }}
+    initial={{ opacity: 1 }}
     animate={{ opacity: 1 }}
-    transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+    className="relative"
   >
     <div id="noise-layer" />
-    <div id="grid-layer">
-      {[...Array(12)].map((_, i) => <div key={i} />)}
+    <div id="grid-layer" className="fixed inset-0 z-0 pointer-events-none grid grid-cols-12 gap-px px-[5vw] opacity-10">
+      {[...Array(12)].map((_, i) => <div key={i} className="border-r border-white/10 h-full" />)}
     </div>
 
     <div className="fixed inset-0 pointer-events-none z-[1000] bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.5)_100%)]" />
 
+    <StarfieldCanvas />
+    <HUDFrame />
     <HUDOverlay />
     <SideNav />
     <Toaster position="bottom-right" theme="dark" richColors />
@@ -189,23 +188,19 @@ export default function App() {
   }, []);
 
   return (
-    <CartProvider>
-      <div className="relative bg-[#000000] min-h-screen selection:bg-[#FF4D00]/30 font-['Inter'] text-[#F5F0E8] overflow-x-hidden">
-        <MobileOverlay />
-        <StarfieldCanvas />
-        <HUDFrame />
-        
-        <div id="cursor-dot" className="fixed top-0 left-0 w-2 h-2 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
-        <div id="cursor-ring" className="fixed top-0 left-0 w-12 h-12 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
+    <div className="relative bg-[#000000] min-h-screen selection:bg-[#FF4D00]/30 font-['Inter'] text-[#F5F0E8] overflow-x-hidden">
+      <MobileOverlay />
+      
+      <div id="cursor-dot" className="fixed top-0 left-0 w-2 h-2 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
+      <div id="cursor-ring" className="fixed top-0 left-0 w-12 h-12 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
 
-        <AnimatePresence mode="wait">
-          {isLoading ? (
-            <CinematicLoader key="loader" onComplete={handleComplete} />
-          ) : (
-            <MainContent />
-          )}
-        </AnimatePresence>
-      </div>
-    </CartProvider>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <CinematicLoader key="loader" onComplete={handleComplete} />
+        ) : (
+          <MainContent />
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
