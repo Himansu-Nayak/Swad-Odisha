@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface District {
-  id: string;
-  name: string;
-  food: string;
-  foodEmoji: string;
-  path: string;
-  labelX: number;
-  labelY: number;
-  color: string;
+  id: string
+  name: string
+  food: string
+  foodEmoji: string
+  path: string
+  labelX: number
+  labelY: number
+  color: string
 }
 
 const districts: District[] = [
@@ -199,11 +199,11 @@ const districts: District[] = [
     path: 'M 45 215 L 72 255 L 82 252 L 60 262 L 55 285 L 38 270 L 30 248 L 35 225 Z',
     labelX: 52, labelY: 250
   },
-];
+]
 
 export default function OdishaMap() {
-  const [hovered, setHovered] = useState<District | null>(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState<District | null>(null)
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
@@ -236,13 +236,13 @@ export default function OdishaMap() {
               filter={hovered?.id === d.id ? 'url(#districtHover)' : undefined}
               style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
               onMouseEnter={(e) => {
-                setHovered(d);
-                const rect = (e.target as SVGElement).closest('svg')!.getBoundingClientRect();
-                setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+                setHovered(d)
+                const rect = (e.target as SVGElement).closest('svg')!.getBoundingClientRect()
+                setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
               }}
               onMouseMove={(e) => {
-                const rect = (e.target as SVGElement).closest('svg')!.getBoundingClientRect();
-                setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+                const rect = (e.target as SVGElement).closest('svg')!.getBoundingClientRect()
+                setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
               }}
             />
           ))}
@@ -319,5 +319,5 @@ export default function OdishaMap() {
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
