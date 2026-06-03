@@ -9,44 +9,43 @@ export const StarfieldCanvas: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let stars: { x: number; y: number; opacity: number; size: number; vx: number; vy: number }[] = [];
     let animationFrameId: number;
+    let particles: { x: number; y: number; r: number; opacity: number; speed: number }[] = [];
 
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initStars();
-    };
-
-    const initStars = () => {
-      stars = [];
+    const initParticles = () => {
+      particles = [];
+      const width = canvas.width;
+      const height = canvas.height;
       for (let i = 0; i < 200; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          opacity: Math.random() * 0.3 + 0.3,
-          size: Math.random() * 1.5,
-          vx: (Math.random() - 0.5) * 0.1,
-          vy: (Math.random() - 0.5) * 0.1
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 0.6 + 0.4,
+          opacity: Math.random() * 0.4 + 0.2,
+          speed: Math.random() * 0.05 + 0.02
         });
       }
     };
 
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    };
+
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      stars.forEach(s => {
-        ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+      particles.forEach(p => {
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
 
-        s.x += s.vx;
-        s.y += s.vy;
-
-        if (s.x < 0) s.x = canvas.width;
-        if (s.x > canvas.width) s.x = 0;
-        if (s.y < 0) s.y = canvas.height;
-        if (s.y > canvas.height) s.y = 0;
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+          p.y = 0;
+          p.x = Math.random() * canvas.width;
+        }
       });
       animationFrameId = requestAnimationFrame(draw);
     };
@@ -61,5 +60,10 @@ export const StarfieldCanvas: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none" />;
+  return (
+    <canvas 
+      ref={canvasRef} 
+      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} 
+    />
+  );
 };

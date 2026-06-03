@@ -6,10 +6,20 @@ interface SectionLabelProps {
 
 export const SectionLabel: React.FC<SectionLabelProps> = ({ label }) => {
   return (
-    <div className="flex items-center gap-6 justify-center w-full">
-      <div className="h-[1px] grow bg-[var(--border)] max-w-[80px]" />
-      <span className="mono-label text-[var(--gold)]">{label}</span>
-      <div className="h-[1px] grow bg-[var(--border)] max-w-[80px]" />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%' }}>
+      <div style={{ flex: 1, height: '1px', background: 'var(--gold-dim)' }} />
+      <span style={{ 
+        fontFamily: 'var(--font-mono)', 
+        fontSize: '11px', 
+        letterSpacing: '0.32em', 
+        color: 'var(--gold)', 
+        textTransform: 'uppercase', 
+        padding: '0 20px', 
+        whiteSpace: 'nowrap' 
+      }}>
+        {label}
+      </span>
+      <div style={{ flex: 1, height: '1px', background: 'var(--gold-dim)' }} />
     </div>
   );
 };

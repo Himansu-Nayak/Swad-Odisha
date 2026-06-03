@@ -1,42 +1,24 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { CartProvider } from "./context/CartContext";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 
-class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
-  constructor(props: any) {
-    super(props);
-    this.state = { hasError: false, error: null };
-  }
+// STEP 1 — Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
-  static getDerivedStateFromError(error: any) {
-    return { hasError: true, error };
-  }
+const lenis = new Lenis({ 
+  duration: 1.4, 
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+});
 
-  componentDidCatch(error: any, errorInfo: any) {
-    console.error("ErrorBoundary caught an error", error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div style={{ backgroundColor: 'black', color: 'red', padding: '50px', fontFamily: 'monospace' }}>
-          <h1>CRITICAL SYSTEM ERROR</h1>
-          <pre>{this.state.error?.message}</pre>
-          <button onClick={() => window.location.reload()}>REBOOT_SYSTEM</button>
-        </div>
-      );
-    }
-
-    return this.props.children; 
-  }
-}
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
 
 createRoot(document.getElementById("root")!).render(
-  <ErrorBoundary>
-    <CartProvider>
-      <App />
-    </CartProvider>
-  </ErrorBoundary>
+  <CartProvider>
+    <App />
+  </CartProvider>
 );

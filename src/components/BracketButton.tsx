@@ -1,31 +1,48 @@
 import React from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { motion } from 'framer-motion';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+interface BracketButtonProps {
+  label: string;
+  onClick?: () => void;
 }
 
-interface BracketButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-}
-
-export const BracketButton: React.FC<BracketButtonProps> = ({ children, className, ...props }) => {
+export const BracketButton: React.FC<BracketButtonProps> = ({ label, onClick }) => {
   return (
-    <button
-      className={cn(
-        "relative py-4 px-12 border-[1.5px] border-[var(--gold)] bg-black/60 mono-label transition-all hover:shadow-[0_0_20px_rgba(201,169,110,0.5)] group overflow-hidden",
-        className
-      )}
-      {...props}
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.02, boxShadow: '0 0 28px rgba(201,169,110,0.35)' }}
+      style={{
+        position: 'relative',
+        background: 'rgba(0,0,0,0.5)',
+        border: '1.5px solid var(--gold)',
+        color: 'var(--text)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '13px',
+        letterSpacing: '0.2em',
+        textTransform: 'uppercase',
+        padding: '14px 44px',
+        cursor: 'pointer'
+      }}
     >
-      {/* Corner Ticks */}
-      <span className="absolute top-[-1px] left-[-1px] w-2 h-2 border-t-[1.5px] border-l-[1.5px] border-[var(--gold)]" />
-      <span className="absolute top-[-1px] right-[-1px] w-2 h-2 border-t-[1.5px] border-r-[1.5px] border-[var(--gold)]" />
-      <span className="absolute bottom-[-1px] left-[-1px] w-2 h-2 border-b-[1.5px] border-l-[1.5px] border-[var(--gold)]" />
-      <span className="absolute bottom-[-1px] right-[-1px] w-2 h-2 border-b-[1.5px] border-r-[1.5px] border-[var(--gold)]" />
-      
-      <span className="relative z-10">{children}</span>
-    </button>
+      {/* 4 corner spans */}
+      <span style={{ position: 'absolute', top: 0, left: 0, width: '10px', height: '10px' }}>
+        <span style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '1.5px', background: 'var(--gold)' }} />
+        <span style={{ position: 'absolute', top: 0, left: 0, width: '1.5px', height: '100%', background: 'var(--gold)' }} />
+      </span>
+      <span style={{ position: 'absolute', top: 0, right: 0, width: '10px', height: '10px' }}>
+        <span style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '1.5px', background: 'var(--gold)' }} />
+        <span style={{ position: 'absolute', top: 0, right: 0, width: '1.5px', height: '100%', background: 'var(--gold)' }} />
+      </span>
+      <span style={{ position: 'absolute', bottom: 0, left: 0, width: '10px', height: '10px' }}>
+        <span style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '1.5px', background: 'var(--gold)' }} />
+        <span style={{ position: 'absolute', bottom: 0, left: 0, width: '1.5px', height: '100%', background: 'var(--gold)' }} />
+      </span>
+      <span style={{ position: 'absolute', bottom: 0, right: 0, width: '10px', height: '10px' }}>
+        <span style={{ position: 'absolute', bottom: 0, right: 0, width: '100%', height: '1.5px', background: 'var(--gold)' }} />
+        <span style={{ position: 'absolute', bottom: 0, right: 0, width: '1.5px', height: '100%', background: 'var(--gold)' }} />
+      </span>
+
+      {label}
+    </motion.button>
   );
 };

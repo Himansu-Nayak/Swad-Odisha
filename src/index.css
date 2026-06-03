@@ -2,31 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* STEP 3 — Design System Variables & Reset */
 @layer base {
   :root {
     --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.3);
     --bg: #050301;
     --text: #f0e6d3;
-    --border: rgba(201,169,110,0.4);
+    --text-dim: rgba(240,230,211,0.5);
     --font-display: 'Bebas Neue', sans-serif;
     --font-mono: 'Space Mono', monospace;
     --font-body: 'Inter', sans-serif;
+    --border: rgba(201,169,110,0.4);
   }
 
   * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    cursor: none;
+    cursor: none; /* Custom cursor or none as per 21hrs */
   }
 
-  html, body, #root {
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
     background-color: var(--bg);
-    color: var(--text);
-    width: 100%;
-    min-height: 100%;
   }
 
   body {
+    background-color: var(--bg);
+    color: var(--text);
     font-family: var(--font-body);
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -34,21 +40,50 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     text-transform: uppercase;
-    line-height: 0.8;
   }
 
   .mono-label {
     font-family: var(--font-mono);
     text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.35em;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--gold);
   }
 }
 
 @layer utilities {
-  .clip-clay-pot {
-    clip-path: ellipse(50% 50% at 50% 50%);
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
   }
+  
+  .corner::before, .corner::after {
+    content: '';
+    position: absolute;
+    background: #c9a96e;
+  }
+
+  /* top-left: horizontal 14x1.5, vertical 1.5x14 */
+  .corner-tl { top: 0; left: 0; }
+  .corner-tl::before { top: 0; left: 0; width: 14px; height: 1.5px; }
+  .corner-tl::after  { top: 0; left: 0; width: 1.5px; height: 14px; }
+
+  /* top-right */
+  .corner-tr { top: 0; right: 0; }
+  .corner-tr::before { top: 0; right: 0; width: 14px; height: 1.5px; }
+  .corner-tr::after  { top: 0; right: 0; width: 1.5px; height: 14px; }
+
+  /* bottom-left */
+  .corner-bl { bottom: 0; left: 0; }
+  .corner-bl::before { bottom: 0; left: 0; width: 14px; height: 1.5px; }
+  .corner-bl::after  { bottom: 0; left: 0; width: 1.5px; height: 14px; }
+
+  /* bottom-right */
+  .corner-br { bottom: 0; right: 0; }
+  .corner-br::before { bottom: 0; right: 0; width: 14px; height: 1.5px; }
+  .corner-br::after  { bottom: 0; right: 0; width: 1.5px; height: 14px; }
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -56,15 +91,5 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-
-  .text-huge {
-    font-size: clamp(6rem, 20vw, 380px);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-  }
-
-  .hud-frame-tick {
-    @apply absolute w-5 h-5 border-[var(--gold)];
   }
 }
