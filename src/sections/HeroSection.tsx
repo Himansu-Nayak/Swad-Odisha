@@ -58,37 +58,153 @@ export const HeroSection: React.FC = () => {
         ODISHA
       </motion.h1>
 
-      {/* Clay pot sphere */}
+      {/* Odisha Map SVG Graphic */}
       <motion.div
-        animate={{ y: [0, -14, 0] }}
-        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
         style={{
-          width: 'clamp(400px, 62vw, 920px)',
-          height: 'clamp(400px, 62vw, 920px)',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle at 34% 26%, #6b3a1a, #3d1f08 30%, #1a0b03 60%, #000 100%)',
-          boxShadow: 'inset -50px -50px 100px rgba(0,0,0,0.95), inset 24px 24px 70px rgba(201,169,110,0.06)',
           position: 'absolute',
-          bottom: '-35%',
+          bottom: '-10%',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 2,
-          mixBlendMode: 'screen'
+          width: 'clamp(380px, 52vw, 780px)',
         }}
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
       >
-        {/* Texture spots */}
-        {[...Array(8)].map((_, i) => (
-          <div key={i} style={{
-            position: 'absolute',
-            width: `${Math.random() * 55 + 15}px`,
-            height: `${Math.random() * 55 + 15}px`,
-            background: 'rgba(0,0,0,0.45)',
-            borderRadius: '50%',
-            top: `${Math.random() * 80 + 10}%`,
-            left: `${Math.random() * 80 + 10}%`,
-            filter: 'blur(2px)'
-          }} />
-        ))}
+        <svg
+          viewBox="0 0 400 420"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ width: '100%', height: '100%', filter: 'drop-shadow(0 0 40px rgba(201,169,110,0.25))' }}
+        >
+          {/* Odisha state boundary — approximate SVG path */}
+          <path
+            d="
+              M 180 10
+              L 210 8
+              L 245 18
+              L 270 14
+              L 295 28
+              L 318 22
+              L 335 40
+              L 345 62
+              L 338 85
+              L 355 100
+              L 360 122
+              L 350 140
+              L 360 158
+              L 355 178
+              L 340 192
+              L 345 215
+              L 330 235
+              L 318 255
+              L 310 278
+              L 295 295
+              L 278 310
+              L 265 332
+              L 248 348
+              L 230 362
+              L 215 378
+              L 200 390
+              L 188 378
+              L 172 365
+              L 155 348
+              L 138 330
+              L 120 312
+              L 105 295
+              L 88 278
+              L 75 258
+              L 62 238
+              L 55 215
+              L 48 192
+              L 40 170
+              L 35 148
+              L 42 128
+              L 38 108
+              L 50 88
+              L 62 72
+              L 78 58
+              L 95 48
+              L 115 38
+              L 138 24
+              L 158 14
+              Z
+            "
+            fill="none"
+            stroke="#c9a96e"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          {/* Filled version behind stroke for depth */}
+          <path
+            d="
+              M 180 10
+              L 210 8
+              L 245 18
+              L 270 14
+              L 295 28
+              L 318 22
+              L 335 40
+              L 345 62
+              L 338 85
+              L 355 100
+              L 360 122
+              L 350 140
+              L 360 158
+              L 355 178
+              L 340 192
+              L 345 215
+              L 330 235
+              L 318 255
+              L 310 278
+              L 295 295
+              L 278 310
+              L 265 332
+              L 248 348
+              L 230 362
+              L 215 378
+              L 200 390
+              L 188 378
+              L 172 365
+              L 155 348
+              L 138 330
+              L 120 312
+              L 105 295
+              L 88 278
+              L 75 258
+              L 62 238
+              L 55 215
+              L 48 192
+              L 40 170
+              L 35 148
+              L 42 128
+              L 38 108
+              L 50 88
+              L 62 72
+              L 78 58
+              L 95 48
+              L 115 38
+              L 138 24
+              L 158 14
+              Z
+            "
+            fill="rgba(201,169,110,0.06)"
+          />
+          {/* Internal district boundary lines — major ones only, subtle */}
+          <line x1="180" y1="10"  x2="200" y2="390" stroke="rgba(201,169,110,0.12)" strokeWidth="0.8"/>
+          <line x1="40"  y1="170" x2="355" y2="178" stroke="rgba(201,169,110,0.12)" strokeWidth="0.8"/>
+          <line x1="62"  y1="238" x2="330" y2="235" stroke="rgba(201,169,110,0.10)" strokeWidth="0.8"/>
+          <line x1="88"  y1="278" x2="310" y2="278" stroke="rgba(201,169,110,0.10)" strokeWidth="0.8"/>
+          <line x1="120" y1="312" x2="278" y2="310" stroke="rgba(201,169,110,0.10)" strokeWidth="0.8"/>
+          {/* Glow pulse circle at capital Bhubaneswar approx position */}
+          <circle cx="255" cy="245" r="5" fill="#c9a96e" opacity="0.9">
+            <animate attributeName="r" values="4;8;4" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="255" cy="245" r="3" fill="#c9a96e" opacity="1"/>
+          {/* Label: Bhubaneswar */}
+          <text x="262" y="242" fill="rgba(201,169,110,0.7)" fontSize="10" fontFamily="'Space Mono', monospace" letterSpacing="1">BBSR</text>
+        </svg>
       </motion.div>
 
       {/* Center info container */}
