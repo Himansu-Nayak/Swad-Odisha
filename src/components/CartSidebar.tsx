@@ -1,10 +1,10 @@
 import React from 'react';
-import { useCart } from '../../hooks/useCart';
-import { Button } from '../ui/button';
+import { useCart } from '../hooks/useCart';
 import { ShoppingBag, Plus, Minus, Trash2 } from 'lucide-react';
-import { SheetHeader, SheetTitle, SheetClose } from '../ui/sheet';
-import { ScrollArea } from '../ui/scroll-area';
-import { Separator } from '../ui/separator';
+import { SheetHeader, SheetTitle, SheetClose } from './ui/sheet';
+import { ScrollArea } from './ui/scroll-area';
+import { Separator } from './ui/separator';
+import { CartItem } from '../types';
 
 export const CartSidebar: React.FC = () => {
   const { cart, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -44,7 +44,7 @@ export const CartSidebar: React.FC = () => {
 
       <ScrollArea className="flex-grow p-8">
         <div className="space-y-10">
-          {cart.map((item) => (
+          {cart.map((item: CartItem) => (
             <div key={item.id} className="flex gap-8 group">
               <div className="w-24 h-24 bg-white/[0.03] border border-white/5 flex-shrink-0 flex items-center justify-center overflow-hidden">
                 <img src={item.image} className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt={item.name} />

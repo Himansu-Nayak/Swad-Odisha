@@ -3,21 +3,28 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AnimatePresence, motion } from 'framer-motion';
-import { SideNav } from './components/layout/SideNav';
-import { Hero } from './components/sections/Hero';
-import { ChefScenes } from './components/sections/ChefScenes';
-import { Menu } from './components/sections/Menu';
-import { About } from './components/sections/About';
-import { Testimonials } from './components/sections/Testimonials';
-import { Footer } from './components/layout/Footer';
+import { SideNav } from './components/SideNav';
+import { Hero } from './sections/Hero';
+import { Story } from './sections/Story';
+import { Problem } from './sections/Problem';
+import { Chefs } from './sections/Chefs';
+import { Menu } from './sections/Menu';
+import { HowItWorks } from './sections/HowItWorks';
+import { Stack } from './sections/Stack';
+import { Stats } from './sections/Stats';
+import { About } from './sections/About';
+import { Testimonials } from './sections/Testimonials';
+import { Footer } from './sections/Footer';
 import { Toaster } from 'sonner';
 import { WebGLScene } from './components/canvas/WebGLScene';
 import { CinematicLoader } from './components/ui/CinematicLoader';
 import { CartProvider } from './context/CartContext';
 import { ShoppingCart } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet';
-import { CartSidebar } from './components/sections/CartSidebar';
+import { CartSidebar } from './components/CartSidebar';
 import { useCart } from './hooks/useCart';
+import { HUDFrame } from './components/HUDFrame';
+import { StarfieldCanvas } from './components/StarfieldCanvas';
 
 import logoImg from './assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png';
 
@@ -37,7 +44,7 @@ const HUDOverlay = () => {
            
            <div className="hud-text flex flex-col gap-2">
             <div className="flex items-center gap-2">
-               <div className="w-2 h-2 bg-[#FF4D00] animate-pulse rounded-full" />
+               <div className="w-1.5 h-1.5 bg-[#FF4D00] animate-pulse rounded-full" />
                <span className="text-[#FF4D00] font-black tracking-[0.2em]">PRESERVATION_ACTIVE</span>
             </div>
             <span className="opacity-30 tracking-[1em] text-[7px]">SYSTEM_ARCHIVE_NODE_V4</span>
@@ -87,7 +94,21 @@ const HUDOverlay = () => {
   );
 };
 
-export const MainContent = () => (
+const MobileOverlay = () => (
+  <div className="fixed inset-0 z-[10000] bg-black flex items-center justify-center p-10 text-center md:hidden">
+     <div className="space-y-8">
+        <div className="font-['Playfair_Display'] text-[#FF4D00] text-4xl font-black italic tracking-tighter">
+          Cinematic Archive.
+        </div>
+        <p className="hud-text leading-relaxed opacity-60">
+           This experience is highly optimized for desktop viewports. Please view on a larger screen to explore the Odia culinary soul.
+        </p>
+        <div className="h-px w-20 bg-[#FF4D00]/20 mx-auto" />
+     </div>
+  </div>
+);
+
+const MainContent = () => (
   <motion.div
     key="content"
     initial={{ opacity: 0 }}
@@ -99,8 +120,7 @@ export const MainContent = () => (
       {[...Array(12)].map((_, i) => <div key={i} />)}
     </div>
 
-    {/* Cinematic Vignette/Aura */}
-    <div className="fixed inset-0 pointer-events-none z-[1000] bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.4)_100%)]" />
+    <div className="fixed inset-0 pointer-events-none z-[1000] bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.5)_100%)]" />
 
     <HUDOverlay />
     <SideNav />
@@ -111,8 +131,13 @@ export const MainContent = () => (
     <main className="relative z-10">
        <div className="pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto [&_div.pointer-events-auto]:pointer-events-auto">
          <Hero />
-         <ChefScenes />
+         <Story />
+         <Problem />
+         <Chefs />
          <Menu />
+         <HowItWorks />
+         <Stack />
+         <Stats />
          <About />
          <Testimonials />
        </div>
@@ -130,6 +155,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    // 1. Initialize Lenis
     const lenis = new Lenis({
       duration: 1.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -165,9 +191,12 @@ export default function App() {
   return (
     <CartProvider>
       <div className="relative bg-[#000000] min-h-screen selection:bg-[#FF4D00]/30 font-['Inter'] text-[#F5F0E8] overflow-x-hidden">
+        <MobileOverlay />
+        <StarfieldCanvas />
+        <HUDFrame />
         
-        <div id="cursor-dot" className="fixed top-0 left-0 w-2 h-2 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference" />
-        <div id="cursor-ring" className="fixed top-0 left-0 w-12 h-12 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference" />
+        <div id="cursor-dot" className="fixed top-0 left-0 w-2 h-2 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
+        <div id="cursor-ring" className="fixed top-0 left-0 w-12 h-12 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
 
         <AnimatePresence mode="wait">
           {isLoading ? (

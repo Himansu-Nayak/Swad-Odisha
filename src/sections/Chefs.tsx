@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { SplitText } from '../ui/SplitText';
+import { SplitText } from '../components/ui/SplitText';
 
 const chefs = [
   {
@@ -29,7 +29,7 @@ const chefs = [
   }
 ];
 
-export const ChefScenes: React.FC = () => {
+export const Chefs: React.FC = () => {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66.6%"]);
