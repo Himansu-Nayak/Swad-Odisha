@@ -16,7 +16,7 @@ export const Menu: React.FC = () => {
   };
 
   return (
-    <section id="menu" className="relative bg-black">
+    <section id="menu" className="relative bg-transparent">
       {/* 21hrs.space Style: One dish per viewport "beat" */}
       {MENU_ITEMS.map((item, i) => (
         <div key={item.id} className="relative h-[120vh] w-full flex flex-col justify-center px-[8vw] border-b border-white/[0.02]">

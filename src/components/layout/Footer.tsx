@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-black text-white/40 pt-60 pb-20 px-[8vw] border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-transparent text-white/40 pt-60 pb-20 px-[8vw] border-t border-white/5 relative overflow-hidden">
       {/* Background Decorative Element */}
       <div className="absolute bottom-0 right-0 text-[30vw] font-black text-white/[0.01] leading-none select-none translate-y-1/2">
          ODISHA

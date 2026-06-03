@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const About: React.FC = () => {
   return (
-    <section id="about" className="relative min-h-[140vh] flex flex-col items-center justify-center px-[8vw] bg-[#000000] overflow-hidden">
+    <section id="about" className="relative min-h-[140vh] flex flex-col items-center justify-center px-[8vw] bg-transparent overflow-hidden">
       <div className="absolute top-[10%] left-[-2%] text-[20vw] font-black text-white/[0.015] pointer-events-none select-none leading-none tracking-tighter">
         SOUL
       </div>
