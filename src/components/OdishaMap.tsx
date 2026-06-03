@@ -187,7 +187,7 @@ export default function OdishaMap() {
             y={d.labelY}
             textAnchor="middle"
             fill="#ffffff"
-            fontSize="6"
+            fontSize="10"
             fontFamily="'Space Mono', monospace"
             fontWeight="700"
             opacity={hovered?.id === d.id ? 1 : 0.75}
@@ -200,9 +200,9 @@ export default function OdishaMap() {
         {hovered && (
           <text
             x={hovered.labelX}
-            y={hovered.labelY + 9}
+            y={hovered.labelY + 14}
             textAnchor="middle"
-            fontSize="8"
+            fontSize="14"
             style={{ pointerEvents: 'none' }}
           >
             {hovered.foodEmoji}
@@ -210,12 +210,12 @@ export default function OdishaMap() {
         )}
 
         {/* Bhubaneswar dot near Khurda label */}
-        <circle cx="360" cy="210" r="3" fill="#c9a96e">
-          <animate attributeName="r" values="2;5;2" dur="2.5s" repeatCount="indefinite"/>
+        <circle cx="360" cy="210" r="3.5" fill="#c9a96e">
+          <animate attributeName="r" values="2;6;2" dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="1;0.2;1" dur="2.5s" repeatCount="indefinite"/>
         </circle>
         <circle cx="360" cy="210" r="1.5" fill="#fff"/>
-        <text x="366" y="208" fill="#c9a96e" fontSize="6" fontFamily="'Space Mono', monospace">BBSR</text>
+        <text x="372" y="214" fill="#c9a96e" fontSize="10" fontFamily="'Space Mono', monospace" fontWeight="bold">BBSR</text>
       </svg>
 
       <AnimatePresence>

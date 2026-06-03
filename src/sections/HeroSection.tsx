@@ -63,14 +63,14 @@ export const HeroSection: React.FC = () => {
       <motion.div
         style={{
           position: 'absolute',
-          bottom: '-8%',
+          top: '50%',
           left: '50%',
-          transform: 'translateX(-50%)',
+          x: '-50%',
           zIndex: 2,
           width: 'clamp(420px, 58vw, 860px)',
           height: 'auto',
         }}
-        animate={{ y: [0, -10, 0] }}
+        animate={{ y: ["-50%", "calc(-50% - 14px)", "-50%"] }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       >
         <OdishaMap />
