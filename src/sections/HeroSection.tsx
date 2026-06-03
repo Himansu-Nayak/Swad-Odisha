@@ -10,7 +10,12 @@ export const HeroSection: React.FC = () => {
     <section id="hero" style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       
       {/* Top HUD bar */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 28px', zIndex: 10 }}>
+      <motion.div 
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 28px', zIndex: 10 }}
+      >
         <div style={{ display: 'flex', gap: '12px' }}>
           <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid var(--gold-dim)', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Menu size={16} color="var(--gold)" />
@@ -28,18 +33,23 @@ export const HeroSection: React.FC = () => {
         </div>
 
         <div style={{ width: '132px' }} /> {/* Right empty spacer to balance left buttons */}
-      </div>
+      </motion.div>
 
       {/* Above the giant word label */}
-      <div style={{ position: 'absolute', top: '35%', width: '100%', maxWidth: '500px', zIndex: 5, transform: 'translateY(-50%)' }}>
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'absolute', top: '35%', width: '100%', maxWidth: '500px', zIndex: 5, transform: 'translateY(-50%)' }}
+      >
          <SectionLabel label="SWAD ODISHA — THE TASTE OF" />
-      </div>
+      </motion.div>
 
       {/* Giant hero word */}
       <motion.h1
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: 100, scale: 0.9, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
         style={{
           fontFamily: 'var(--font-display)',
           fontSize: 'clamp(18vw, 22vw, 360px)',
@@ -49,7 +59,8 @@ export const HeroSection: React.FC = () => {
           WebkitTextFillColor: 'transparent',
           position: 'absolute',
           top: '50%',
-          transform: 'translateY(-52%)',
+          marginTop: '-4%', /* subtle optical alignment adjustment */
+          transform: 'translateY(-50%)',
           zIndex: 1,
           pointerEvents: 'none',
           userSelect: 'none',
@@ -59,35 +70,48 @@ export const HeroSection: React.FC = () => {
         ODISHA
       </motion.h1>
 
-      {/* Odisha Map Visual */}
+      {/* Odisha Map Visual - Nested to allow Entrance + Infinite Float */}
       <motion.div
+        initial={{ opacity: 0, y: 100, scale: 0.85 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         style={{
           position: 'absolute',
           top: '50%',
           left: '50%',
           x: '-50%',
+          y: '-50%',
           zIndex: 2,
           width: 'clamp(420px, 58vw, 860px)',
           height: 'auto',
         }}
-        animate={{ y: ["-50%", "calc(-50% - 14px)", "-50%"] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <OdishaMap />
+        <motion.div
+          animate={{ y: ["0%", "-3%", "0%"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <OdishaMap />
+        </motion.div>
       </motion.div>
 
       {/* Center info container */}
-      <div style={{ 
-        position: 'absolute', 
-        bottom: '28%', 
-        left: 0, 
-        right: 0, 
-        zIndex: 5, 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        gap: 0 
-      }}>
+      <motion.div 
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ 
+          position: 'absolute', 
+          bottom: '28%', 
+          left: 0, 
+          right: 0, 
+          zIndex: 5, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: 0 
+        }}
+      >
         <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'space-between', padding: '0 28px', marginBottom: '12px' }}>
           <div>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>PLATFORM</p>
@@ -106,12 +130,17 @@ export const HeroSection: React.FC = () => {
         <div style={{ width: '100%', height: '1px', background: 'var(--gold-dim)', marginBottom: '24px' }} />
 
         <BracketButton label="SCROLL TO TASTE" onClick={() => document.getElementById('story')?.scrollIntoView({behavior:'smooth'})} />
-      </div>
+      </motion.div>
 
       {/* Bottom text */}
-      <div style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.28em', color: 'rgba(201,169,110,0.3)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 1.8 }}
+        style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.28em', color: 'rgba(201,169,110,0.3)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
+      >
         BEST EXPERIENCED ON DESKTOP
-      </div>
+      </motion.div>
 
     </section>
   );
