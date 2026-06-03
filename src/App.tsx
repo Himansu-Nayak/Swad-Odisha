@@ -19,15 +19,7 @@ export default function App() {
       <StarfieldCanvas />
       <HUDFrame />
       <ScrollProgress />
-      
-      {/* Mobile overlay */}
-      <div className="md:hidden fixed inset-0 z-[100000] bg-[var(--bg)] flex items-center justify-center p-8 text-center border-[10px] border-[var(--gold)]">
-         <p className="font-mono text-[var(--gold)] text-sm uppercase tracking-widest leading-relaxed">
-            Please view on a desktop device for the full cinematic experience.
-         </p>
-      </div>
-
-      <main style={{ position: 'relative', zIndex: 1 }} className="hidden md:block">
+      <main style={{ position: 'relative', zIndex: 1 }}>
         <HeroSection />
         <StorySection />
         <ProblemSection />
