@@ -77,12 +77,12 @@ export const HeroSection: React.FC = () => {
         transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         style={{
           position: 'absolute',
-          top: '50%',
+          top: '44%',
           left: '50%',
           x: '-50%',
           y: '-50%',
           zIndex: 2,
-          width: 'clamp(420px, 58vw, 860px)',
+          width: 'clamp(300px, 42vw, 650px)',
           height: 'auto',
         }}
       >
