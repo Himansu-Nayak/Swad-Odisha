@@ -63,13 +63,13 @@ export const HeroSection: React.FC = () => {
         animate={{ y: [0, -14, 0] }}
         transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
         style={{
-          width: 'clamp(360px, 56vw, 860px)',
-          height: 'clamp(360px, 56vw, 860px)',
+          width: 'clamp(400px, 62vw, 920px)',
+          height: 'clamp(400px, 62vw, 920px)',
           borderRadius: '50%',
           background: 'radial-gradient(circle at 34% 26%, #6b3a1a, #3d1f08 30%, #1a0b03 60%, #000 100%)',
           boxShadow: 'inset -50px -50px 100px rgba(0,0,0,0.95), inset 24px 24px 70px rgba(201,169,110,0.06)',
           position: 'absolute',
-          bottom: '-30%',
+          bottom: '-35%',
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 2,
@@ -91,28 +91,35 @@ export const HeroSection: React.FC = () => {
         ))}
       </motion.div>
 
-      {/* Center info row */}
-      <div style={{ position: 'absolute', bottom: '33%', left: 0, right: 0, zIndex: 5, padding: '0 28px' }}>
-        <div style={{ position: 'absolute', left: '28px', bottom: 0 }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>PLATFORM</p>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>Swad Odisha</p>
+      {/* Center info container */}
+      <div style={{ 
+        position: 'absolute', 
+        bottom: '28%', 
+        left: 0, 
+        right: 0, 
+        zIndex: 5, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        gap: 0 
+      }}>
+        <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'space-between', padding: '0 28px', marginBottom: '12px' }}>
+          <div>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>PLATFORM</p>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>Swad Odisha</p>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>YEAR</p>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>2025</p>
+          </div>
         </div>
         
-        <p style={{ textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: '18px', fontWeight: 600, color: 'var(--text)', maxWidth: '560px', margin: '0 auto' }}>
+        <p style={{ textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: '17px', fontWeight: 600, color: 'var(--text)', maxWidth: '520px', lineHeight: 1.6, marginBottom: '16px' }}>
           Discover authentic Odia cuisine handcrafted by home chefs — from Pakhala Bhata to Chhena Poda, delivered fresh to your door.
         </p>
 
-        <div style={{ position: 'absolute', right: '28px', bottom: 0, textAlign: 'right' }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>YEAR</p>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>2025</p>
-        </div>
-      </div>
+        <div style={{ width: '100%', height: '1px', background: 'var(--gold-dim)', marginBottom: '24px' }} />
 
-      {/* Gold divider */}
-      <div style={{ position: 'absolute', bottom: '30%', left: 0, right: 0, height: '1px', background: 'var(--gold-dim)', zIndex: 5 }} />
-
-      {/* CTA */}
-      <div style={{ position: 'absolute', bottom: '16%', left: '50%', transform: 'translateX(-50%)', zIndex: 5 }}>
         <BracketButton label="SCROLL TO TASTE" onClick={() => document.getElementById('story')?.scrollIntoView({behavior:'smooth'})} />
       </div>
 
