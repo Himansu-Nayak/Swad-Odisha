@@ -29,13 +29,14 @@ const HUDOverlay = () => {
   
   return (
     <div className="fixed inset-0 z-[1001] pointer-events-none p-[5vw] flex flex-col justify-between mix-blend-difference">
+      {/* Top HUD */}
       <div className="flex justify-between items-start pointer-events-auto">
         <div className="flex items-center gap-8">
            <div className="w-14 h-14 bg-white/[0.03] border border-white/5 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-3xl shadow-2xl">
               <img src={logoImg} className="w-4/5 h-3/5 object-contain mix-blend-screen opacity-80" alt="Logo HUD" />
            </div>
            
-           <div className="hud-text flex flex-col gap-2">
+           <div className="hud-text flex flex-col gap-2 text-white">
             <div className="flex items-center gap-2">
                <div className="w-1.5 h-1.5 bg-[#FF4D00] animate-pulse rounded-full" />
                <span className="text-[#FF4D00] font-black tracking-[0.2em]">PRESERVATION_ACTIVE</span>
@@ -63,7 +64,7 @@ const HUDOverlay = () => {
                 <CartSidebar />
               </SheetContent>
            </Sheet>
-           <div className="hud-text text-right opacity-30 text-[8px] leading-relaxed">
+           <div className="hud-text text-right opacity-30 text-[8px] leading-relaxed text-white">
               COORD: 20.2961° N, 85.8245° E <br/>
               ARCHIVE_HASH: 0x8824_OD_INTL
            </div>
@@ -71,7 +72,7 @@ const HUDOverlay = () => {
       </div>
 
       <div className="flex justify-between items-end pointer-events-auto">
-        <div className="hud-text flex flex-col gap-1 opacity-20">
+        <div className="hud-text flex flex-col gap-1 opacity-20 text-white">
           <span>TIME_NODE: {new Date().toLocaleTimeString('en-IN', { hour12: false })} IST</span>
           <span>STABILITY: OPTIMIZED_99.9%</span>
         </div>
@@ -85,6 +86,40 @@ const HUDOverlay = () => {
     </div>
   );
 };
+
+const MainContent = () => (
+  <motion.div
+    key="content"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1.5 }}
+    className="relative"
+  >
+    <StarfieldCanvas />
+    <HUDFrame />
+    <div id="noise-layer" />
+    <div id="grid-layer" className="fixed inset-0 z-0 pointer-events-none grid grid-cols-12 gap-px px-[5vw] opacity-10">
+      {[...Array(12)].map((_, i) => <div key={i} className="border-r border-white/10 h-full" />)}
+    </div>
+
+    <HUDOverlay />
+    <SideNav />
+    <Toaster position="bottom-right" theme="dark" />
+    
+    <WebGLScene />
+    
+    <main className="relative z-10 pointer-events-none">
+       <div className="pointer-events-auto">
+         <Hero />
+         <Chefs />
+         <Menu />
+         <About />
+         <Testimonials />
+       </div>
+    </main>
+    <Footer />
+  </motion.div>
+);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -115,7 +150,7 @@ export default function App() {
       const ring = document.getElementById('cursor-ring');
       if (dot && ring) {
         gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power3.out" });
+        gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power3.out" });
       }
     };
 
@@ -123,6 +158,7 @@ export default function App() {
     return () => {
       lenis.destroy();
       window.removeEventListener('mousemove', onMouseMove);
+      gsap.ticker.remove(onScroll);
       gsap.ticker.remove(ticker);
     };
   }, []);
@@ -136,37 +172,7 @@ export default function App() {
         {isLoading ? (
           <CinematicLoader key="loader" onComplete={handleComplete} />
         ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
-            className="relative"
-          >
-            <StarfieldCanvas />
-            <HUDFrame />
-            <div id="noise-layer" />
-            <div id="grid-layer" className="fixed inset-0 z-0 pointer-events-none grid grid-cols-12 gap-px px-[5vw] opacity-10">
-              {[...Array(12)].map((_, i) => <div key={i} className="border-r border-white/10 h-full" />)}
-            </div>
-
-            <HUDOverlay />
-            <SideNav />
-            <Toaster position="bottom-right" theme="dark" richColors />
-            
-            <WebGLScene />
-            
-            <main className="relative z-10 pointer-events-none">
-               <div className="pointer-events-auto">
-                 <Hero />
-                 <Chefs />
-                 <Menu />
-                 <About />
-                 <Testimonials />
-               </div>
-            </main>
-            <Footer />
-          </motion.div>
+          <MainContent />
         )}
       </AnimatePresence>
     </div>
