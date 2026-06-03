@@ -13,6 +13,7 @@ import { Footer } from './sections/Footer';
 import { Toaster } from 'sonner';
 import { WebGLScene } from './components/canvas/WebGLScene';
 import { CinematicLoader } from './components/ui/CinematicLoader';
+import { CartProvider } from './context/CartContext';
 import { ShoppingCart } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from './components/ui/sheet';
 import { CartSidebar } from './components/CartSidebar';
@@ -71,13 +72,13 @@ const HUDOverlay = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-end pointer-events-auto">
+      <div className="flex justify-between items-end pointer-events-auto text-white">
         <div className="hud-text flex flex-col gap-1 opacity-20 text-white">
           <span>TIME_NODE: {new Date().toLocaleTimeString('en-IN', { hour12: false })} IST</span>
           <span>STABILITY: OPTIMIZED_99.9%</span>
         </div>
         <div className="flex flex-col items-end gap-2 text-white">
-           <div className="hud-text text-right flex flex-col gap-1">
+           <div className="hud-text text-right flex flex-col gap-1 text-white">
             <span className="text-[#c9a96e] font-black tracking-[0.5em]">ODISHA_CULTURAL_ARCHIVE</span>
             <span className="opacity-20 text-[7px] uppercase tracking-[1.2em] text-right">Living_Heritage_Protocol</span>
           </div>
@@ -86,40 +87,6 @@ const HUDOverlay = () => {
     </div>
   );
 };
-
-const MainContent = () => (
-  <motion.div
-    key="content"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 1.5 }}
-    className="relative"
-  >
-    <StarfieldCanvas />
-    <HUDFrame />
-    <div id="noise-layer" />
-    <div id="grid-layer" className="fixed inset-0 z-0 pointer-events-none grid grid-cols-12 gap-px px-[5vw] opacity-10">
-      {[...Array(12)].map((_, i) => <div key={i} className="border-r border-white/10 h-full" />)}
-    </div>
-
-    <HUDOverlay />
-    <SideNav />
-    <Toaster position="bottom-right" theme="dark" />
-    
-    <WebGLScene />
-    
-    <main className="relative z-10 pointer-events-none">
-       <div className="pointer-events-auto">
-         <Hero />
-         <Chefs />
-         <Menu />
-         <About />
-         <Testimonials />
-       </div>
-    </main>
-    <Footer />
-  </motion.div>
-);
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -134,6 +101,7 @@ export default function App() {
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      wheelMultiplier: 0.8,
     });
     lenisRef.current = lenis;
 
@@ -150,7 +118,7 @@ export default function App() {
       const ring = document.getElementById('cursor-ring');
       if (dot && ring) {
         gsap.to(dot, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.4, ease: "power3.out" });
+        gsap.to(ring, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power3.out" });
       }
     };
 
@@ -158,23 +126,55 @@ export default function App() {
     return () => {
       lenis.destroy();
       window.removeEventListener('mousemove', onMouseMove);
-      gsap.ticker.remove(onScroll);
       gsap.ticker.remove(ticker);
     };
   }, []);
 
   return (
-    <div className="relative bg-black min-h-screen text-[#f0e6d3] font-['Inter'] overflow-x-hidden">
-      <div id="cursor-dot" className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
-      <div id="cursor-ring" className="fixed top-0 left-0 w-10 h-10 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
+    <CartProvider>
+      <div className="relative bg-black min-h-screen text-[#f0e6d3] font-['Inter'] overflow-x-hidden">
+        
+        <div id="cursor-dot" className="fixed top-0 left-0 w-1.5 h-1.5 bg-[#FF4D00] rounded-full z-[10001] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
+        <div id="cursor-ring" className="fixed top-0 left-0 w-10 h-10 border border-white/20 rounded-full z-[10000] pointer-events-none -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block" />
 
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <CinematicLoader key="loader" onComplete={handleComplete} />
-        ) : (
-          <MainContent />
-        )}
-      </AnimatePresence>
-    </div>
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <CinematicLoader key="loader" onComplete={handleComplete} />
+          ) : (
+            <motion.div
+              key="content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative"
+            >
+              <StarfieldCanvas />
+              <HUDFrame />
+              <div id="noise-layer" />
+              <div id="grid-layer" className="fixed inset-0 z-0 pointer-events-none grid grid-cols-12 gap-px px-[5vw] opacity-10">
+                {[...Array(12)].map((_, i) => <div key={i} className="border-r border-white/10 h-full" />)}
+              </div>
+
+              <HUDOverlay />
+              <SideNav />
+              <Toaster position="bottom-right" theme="dark" richColors />
+              
+              <WebGLScene />
+              
+              <main className="relative z-10 pointer-events-none">
+                 <div className="pointer-events-auto">
+                   <Hero />
+                   <Chefs />
+                   <Menu />
+                   <About />
+                   <Testimonials />
+                 </div>
+              </main>
+              <Footer />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </CartProvider>
   );
 }
