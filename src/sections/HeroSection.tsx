@@ -1,80 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Menu, AudioLines, Play } from 'lucide-react';
-import { SectionLabel } from '../components/SectionLabel';
-import { BracketButton } from '../components/BracketButton';
+import { Menu, AudioLines, Play, ChevronDown } from 'lucide-react';
 import OdishaMap from '../components/OdishaMap';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+    <section id="hero" style={{ position: 'relative', overflow: 'hidden', height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       
-      {/* Top HUD bar */}
-      <motion.div 
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 28px', zIndex: 10 }}
-      >
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid var(--gold-dim)', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Menu size={16} color="var(--gold)" />
-          </div>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid var(--gold-dim)', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <AudioLines size={16} color="var(--gold)" />
-          </div>
-          <div style={{ width: '44px', height: '44px', borderRadius: '50%', border: '1.5px solid var(--gold-dim)', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Play size={16} color="var(--gold)" />
-          </div>
-        </div>
-
-        <div style={{ flex: 1, maxWidth: '400px' }}>
-          <SectionLabel label="SWAD ODISHA" />
-        </div>
-
-        <div style={{ width: '132px' }} /> {/* Right empty spacer to balance left buttons */}
-      </motion.div>
-
-      {/* Above the giant word label - PUSHED UP */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'absolute', top: '22%', width: '100%', maxWidth: '500px', zIndex: 5, transform: 'translateY(-50%)' }}
-      >
-         <SectionLabel label="SWAD ODISHA — THE TASTE OF" />
-      </motion.div>
-
-      {/* Giant hero word */}
+      {/* LAYER 2 - "ODISHA" WATERMARK (z-index: 1) */}
+      {/* (Layer 1 is StarfieldCanvas rendered globally in App.tsx) */}
       <motion.h1
-        initial={{ opacity: 0, y: 100, scale: 0.9, filter: 'blur(10px)' }}
-        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0.03, 0.06, 0.03] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(18vw, 22vw, 360px)',
-          lineHeight: 0.85,
-          background: 'linear-gradient(180deg, #fff 0%, #bbb 55%, #666 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          fontSize: 'clamp(120px, 18vw, 220px)',
+          fontWeight: 900,
+          letterSpacing: '0.15em',
+          color: 'rgba(255,255,255,1)', // Opacity controlled by framer motion
           position: 'absolute',
           top: '50%',
-          marginTop: '-4%', /* subtle optical alignment adjustment */
-          transform: 'translateY(-50%)',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           zIndex: 1,
           pointerEvents: 'none',
           userSelect: 'none',
-          margin: 0
+          margin: 0,
+          whiteSpace: 'nowrap'
         }}
       >
         ODISHA
       </motion.h1>
 
-      {/* Odisha Map Visual - EXACT CENTER */}
+      {/* LAYER 3 - ODISHA MAP (z-index: 2) */}
       <motion.div
-        initial={{ opacity: 0, y: 100, scale: 0.85 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         style={{
           position: 'absolute',
           top: '50%',
@@ -82,65 +45,162 @@ export const HeroSection: React.FC = () => {
           x: '-50%',
           y: '-50%',
           zIndex: 2,
-          width: 'clamp(320px, 38vw, 580px)',
+          width: 'clamp(380px, 45vw, 580px)',
           height: 'auto',
+          filter: 'drop-shadow(0 0 40px rgba(200,120,40,0.3))'
         }}
       >
-        <motion.div
-          animate={{ y: ["0%", "-3%", "0%"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <OdishaMap />
-        </motion.div>
+        <OdishaMap />
       </motion.div>
 
-      {/* Center info container - PUSHED DOWN */}
+      {/* LAYER 4 - UI CONTENT (z-index: 3 and above) */}
+      
+      {/* TOP NAV BAR (z-index: 100) */}
       <motion.div 
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1, delay: 0.2 }}
         style={{ 
-          position: 'absolute', 
-          bottom: '18%', 
-          left: 0, 
-          right: 0, 
-          zIndex: 5, 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          gap: 0 
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
+          padding: '20px 28px',
+          background: 'rgba(0,0,0,0.8)',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid rgba(255,255,255,0.05)'
         }}
       >
-        <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'space-between', padding: '0 28px', marginBottom: '12px' }}>
-          <div>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>PLATFORM</p>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>Swad Odisha</p>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>YEAR</p>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--text)' }}>2025</p>
-          </div>
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <button style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <Menu size={16} color="var(--text)" />
+          </button>
+          <button style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <AudioLines size={16} color="var(--text)" />
+          </button>
+          <button style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+            <Play size={16} color="var(--text)" />
+          </button>
         </div>
+
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+          <div style={{ height: '1px', flex: 1, maxWidth: '60px', background: 'rgba(255,255,255,0.1)' }} />
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--gold)', letterSpacing: '0.4em', textTransform: 'uppercase' }}>
+            SWAD ODISHA
+          </span>
+          <div style={{ height: '1px', flex: 1, maxWidth: '60px', background: 'rgba(255,255,255,0.1)' }} />
+        </div>
+
+        <div style={{ width: '152px' }} /> {/* Spacer to center the logo perfectly */}
+      </motion.div>
+
+      {/* CENTER CONTENT BLOCK (z-index: 10) */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '50%', left: '50%', 
+        transform: 'translate(-50%, -50%)', 
+        zIndex: 10, 
+        display: 'flex', flexDirection: 'column', alignItems: 'center', 
+        width: '100%', pointerEvents: 'none' 
+      }}>
         
-        <p style={{ textAlign: 'center', fontFamily: 'var(--font-body)', fontSize: '17px', fontWeight: 600, color: 'var(--text)', maxWidth: '520px', lineHeight: 1.6, marginBottom: '16px' }}>
-          Discover authentic Odia cuisine handcrafted by home chefs — from Pakhala Bhata to Chhena Poda, delivered fresh to your door.
-        </p>
+        {/* 1. Tagline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '80px' }}
+        >
+          <div style={{ height: '1px', width: '40px', background: 'var(--gold-dim)' }} />
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--gold)', letterSpacing: '0.5em', textTransform: 'uppercase' }}>
+            SWAD ODISHA — THE TASTE OF ODISHA
+          </span>
+          <div style={{ height: '1px', width: '40px', background: 'var(--gold-dim)' }} />
+        </motion.div>
 
-        <div style={{ width: '100%', height: '1px', background: 'var(--gold-dim)', marginBottom: '24px' }} />
+        {/* 2. Description Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.6 }}
+          style={{
+            background: 'rgba(0,0,0,0.55)',
+            backdropFilter: 'blur(6px)',
+            padding: '20px 28px',
+            borderRadius: '4px',
+            maxWidth: '480px',
+            border: '1px solid rgba(255,255,255,0.03)',
+            marginBottom: '80px',
+            pointerEvents: 'auto'
+          }}
+        >
+          <p style={{ 
+            textAlign: 'center', 
+            fontFamily: 'var(--font-body)', 
+            fontSize: 'clamp(13px, 1.4vw, 16px)', 
+            color: 'rgba(255,255,255,0.75)', 
+            lineHeight: 1.8, 
+            margin: 0 
+          }}>
+            Discover authentic Odia cuisine handcrafted by home chefs — from Pakhala Bhata to Chhena Poda, delivered fresh to your door.
+          </p>
+        </motion.div>
 
-        <BracketButton label="SCROLL TO TASTE" onClick={() => document.getElementById('story')?.scrollIntoView({behavior:'smooth'})} />
-      </motion.div>
+        {/* 3. CTA Button & Chevron */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2.0 }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px', pointerEvents: 'auto' }}
+        >
+          <motion.button
+            whileHover={{ backgroundColor: 'rgba(200,160,80,0.15)', borderColor: 'rgba(200,160,80,1)' }}
+            style={{
+              background: 'transparent',
+              border: '1px solid rgba(200,160,80,0.6)',
+              padding: '14px 36px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              color: 'var(--gold)',
+              letterSpacing: '0.4em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onClick={() => document.getElementById('story')?.scrollIntoView({behavior:'smooth'})}
+          >
+            SCROLL TO TASTE
+          </motion.button>
+          
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ChevronDown size={20} color="var(--gold)" style={{ opacity: 0.6 }} />
+          </motion.div>
+        </motion.div>
+      </div>
 
-      {/* Bottom text */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 1.8 }}
-        style={{ position: 'absolute', bottom: '22px', left: '50%', transform: 'translateX(-50%)', fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '0.28em', color: 'rgba(201,169,110,0.3)', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
-      >
-        BEST EXPERIENCED ON DESKTOP
-      </motion.div>
+      {/* LEFT SIDEBAR LABEL */}
+      <div style={{ position: 'fixed', left: '28px', bottom: '120px', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.4em', textTransform: 'uppercase' }}>PLATFORM</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>Swad Odisha</span>
+      </div>
+
+      {/* RIGHT SIDEBAR LABEL */}
+      <div style={{ position: 'fixed', right: '28px', bottom: '120px', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '4px', textAlign: 'right' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.4em', textTransform: 'uppercase' }}>YEAR</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'rgba(255,255,255,0.6)' }}>2025</span>
+      </div>
+
+      {/* FOOTER BAR */}
+      <div style={{ position: 'fixed', bottom: '20px', left: 0, width: '100%', zIndex: 100, textAlign: 'center' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.4em', textTransform: 'uppercase' }}>
+          BEST EXPERIENCED ON DESKTOP
+        </span>
+      </div>
+
+      {/* CORNER BRACKETS */}
+      <div style={{ position: 'fixed', left: '20px', bottom: '20px', width: '20px', height: '20px', borderLeft: '1px solid rgba(255,255,255,0.2)', borderBottom: '1px solid rgba(255,255,255,0.2)', zIndex: 90 }} />
+      <div style={{ position: 'fixed', left: '20px', top: '20px', width: '20px', height: '20px', borderLeft: '1px solid rgba(255,255,255,0.2)', borderTop: '1px solid rgba(255,255,255,0.2)', zIndex: 90 }} />
 
     </section>
   );

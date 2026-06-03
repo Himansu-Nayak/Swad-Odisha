@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --gold: #c9a96e;
-  --gold-dim: rgba(201,169,110,0.3);
-  --bg: #050301;
-  --text: #f0e6d3;
-  --text-dim: rgba(240,230,211,0.5);
-  --font-display: 'Bebas Neue', sans-serif;
+  --gold: #c8a96e;
+  --gold-dim: rgba(200,160,80,0.6);
+  --bg: #080808;
+  --text: rgba(255,255,255,0.85);
+  --text-dim: rgba(255,255,255,0.35);
+  --font-display: 'Cormorant Garamond', serif;
   --font-mono: 'Space Mono', monospace;
   --font-body: 'Inter', sans-serif;
 }
