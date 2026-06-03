@@ -35,12 +35,12 @@ export const HeroSection: React.FC = () => {
         <div style={{ width: '132px' }} /> {/* Right empty spacer to balance left buttons */}
       </motion.div>
 
-      {/* Above the giant word label */}
+      {/* Above the giant word label - PUSHED UP */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'absolute', top: '35%', width: '100%', maxWidth: '500px', zIndex: 5, transform: 'translateY(-50%)' }}
+        style={{ position: 'absolute', top: '22%', width: '100%', maxWidth: '500px', zIndex: 5, transform: 'translateY(-50%)' }}
       >
          <SectionLabel label="SWAD ODISHA — THE TASTE OF" />
       </motion.div>
@@ -70,19 +70,19 @@ export const HeroSection: React.FC = () => {
         ODISHA
       </motion.h1>
 
-      {/* Odisha Map Visual - Nested to allow Entrance + Infinite Float */}
+      {/* Odisha Map Visual - EXACT CENTER */}
       <motion.div
         initial={{ opacity: 0, y: 100, scale: 0.85 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         style={{
           position: 'absolute',
-          top: '44%',
+          top: '50%',
           left: '50%',
           x: '-50%',
           y: '-50%',
           zIndex: 2,
-          width: 'clamp(300px, 42vw, 650px)',
+          width: 'clamp(320px, 38vw, 580px)',
           height: 'auto',
         }}
       >
@@ -95,14 +95,14 @@ export const HeroSection: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Center info container */}
+      {/* Center info container - PUSHED DOWN */}
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
         style={{ 
           position: 'absolute', 
-          bottom: '28%', 
+          bottom: '18%', 
           left: 0, 
           right: 0, 
           zIndex: 5, 
