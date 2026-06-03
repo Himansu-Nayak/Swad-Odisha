@@ -4,7 +4,6 @@ import { Sphere, PointMaterial, Points } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,32 +18,34 @@ const CinematicSphere = () => {
   });
 
   return (
-    <Sphere ref={meshRef} args={[3, 128, 128]} position={[0, 0, 0]}>
-      <meshStandardMaterial 
-        color="#050403"
-        roughness={1}
-        metalness={0.0}
-        emissive="#FF4D00"
-        emissiveIntensity={0.05}
-        transparent
-        opacity={0.8}
-      />
-      {/* Structural Wireframe Overlay */}
-      <Sphere args={[3.01, 32, 32]}>
-        <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.02} />
+    <group>
+      <Sphere ref={meshRef} args={[3, 128, 128]} position={[0, 0, 0]}>
+        <meshStandardMaterial 
+          color="#050403"
+          roughness={1}
+          metalness={0.0}
+          emissive="#FF4D00"
+          emissiveIntensity={0.02}
+          transparent
+          opacity={0.9}
+        />
+        {/* Structural Wireframe Overlay */}
+        <Sphere args={[3.01, 32, 32]}>
+          <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.01} />
+        </Sphere>
       </Sphere>
-    </Sphere>
+    </group>
   );
 };
 
 const CinematicParticles = () => {
-  const count = 3000;
+  const count = 4000; // More particles for density
   const positions = useMemo(() => {
     const p = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      p[i * 3] = (Math.random() - 0.5) * 30; // x
-      p[i * 3 + 1] = (Math.random() - 0.5) * 30; // y
-      p[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5; // z
+      p[i * 3] = (Math.random() - 0.5) * 40; // x
+      p[i * 3 + 1] = (Math.random() - 0.5) * 40; // y
+      p[i * 3 + 2] = (Math.random() - 0.5) * 20 - 5; // z
     }
     return p;
   }, [count]);
@@ -62,35 +63,27 @@ const CinematicParticles = () => {
       <PointMaterial
         transparent
         color="#FF4D00"
-        size={0.03}
+        size={0.02}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.3}
+        opacity={0.4}
       />
     </Points>
   );
 };
 
 const CameraController = () => {
-  useGSAP(() => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 2,
-      }
-    });
-  }, []);
-
   useFrame((state) => {
+    // Exact scroll-bound camera pathing
     const scrollY = window.scrollY;
-    // Smoother camera inertia logic
-    const targetY = -scrollY * 0.004;
-    const targetZ = 8 + (scrollY * 0.0015);
+    const targetY = -scrollY * 0.005;
+    const targetZ = 10 + (scrollY * 0.002);
+    const targetX = Math.sin(scrollY * 0.001) * 2;
     
+    state.camera.position.x += (targetX - state.camera.position.x) * 0.05;
     state.camera.position.y += (targetY - state.camera.position.y) * 0.05;
     state.camera.position.z += (targetZ - state.camera.position.z) * 0.05;
+    
     state.camera.lookAt(0, state.camera.position.y, 0);
   });
 
@@ -99,12 +92,28 @@ const CameraController = () => {
 
 export const WebGLScene: React.FC = () => {
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none bg-[#020202]">
-      <Canvas camera={{ position: [0, 0, 8], fov: 40 }}>
-        <fog attach="fog" args={['#020202', 5, 20]} />
-        <ambientLight intensity={0.2} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={2} color="#FF4D00" castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#EF9F27" />
+    <div className="fixed inset-0 z-0 pointer-events-none bg-black">
+      <Canvas 
+        camera={{ position: [0, 0, 10], fov: 35 }}
+        gl={{ 
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance" 
+        }}
+      >
+        <color attach="background" args={['#000000']} />
+        <fog attach="fog" args={['#000000', 5, 25]} />
+        <ambientLight intensity={0.1} />
+        <spotLight 
+          position={[15, 20, 15]} 
+          angle={0.2} 
+          penumbra={1} 
+          intensity={3} 
+          color="#FF4D00" 
+          castShadow 
+        />
+        <pointLight position={[-15, -20, -15]} intensity={1} color="#EF9F27" />
+        
         <CinematicSphere />
         <CinematicParticles />
         <CameraController />
