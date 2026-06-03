@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SplitText } from '../ui/SplitText';
+import heroAsset from '../../assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png';
 
 export const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
@@ -81,7 +82,7 @@ export const Hero: React.FC = () => {
       >
          <div className="relative w-full h-full border border-white/[0.03] bg-white/[0.01] backdrop-blur-3xl overflow-hidden rounded-full p-20 flex items-center justify-center grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-2000">
             <img 
-              src="/src/assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png" 
+              src={heroAsset} 
               alt="Premium Odia Cuisine"
               className="w-full h-full object-contain mix-blend-screen animate-pulse"
             />
