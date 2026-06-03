@@ -1,93 +1,70 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { SplitText } from '../components/ui/SplitText';
-import heroAsset from '../assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png';
+import { BracketButton } from '../components/BracketButton';
+import { SectionLabel } from '../components/SectionLabel';
 
 export const Hero: React.FC = () => {
-  const scrollTo = (id: string) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    <section id="home" className="relative min-h-[160vh] flex flex-col items-start px-[5vw] pt-[20vh] overflow-hidden bg-transparent">
-      {/* Structural Saffron Light Burst */}
-      <div className="absolute top-[-10%] left-[-10%] w-[100vw] h-[100vw] bg-[#FF4D00]/5 blur-[180px] rounded-full pointer-events-none" />
-
-      <div className="relative z-10 w-full flex flex-col items-start">
-        <div className="flex items-center gap-10 mb-20 ml-2">
-           <motion.div 
-             initial={{ width: 0 }}
-             whileInView={{ width: 120 }}
-             transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
-             className="h-px bg-[#FF4D00]" 
-           />
-           <span className="hud-text text-[#FF4D00] tracking-[1em]">Archive_Entrance_V1</span>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 150 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative group"
+    <section id="home" className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+      {/* Background Giant Text */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+        <SectionLabel label="SWAD ODISHA — THE TASTE OF" />
+        <motion.h1
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.19, 1, 0.22, 1] }}
+          className="text-huge leading-none text-transparent bg-clip-text bg-gradient-to-b from-white to-[#888888] font-black tracking-tighter"
+          style={{ zIndex: 0 }}
         >
-          <SplitText 
-            text="SWAD ODISHA" 
-            className="text-poster text-white whitespace-nowrap drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-            delay={0.5}
-          />
-          <div className="absolute top-[20%] right-[-5%] text-white/5 font-['Playfair_Display'] font-black text-[12vw] select-none pointer-events-none italic group-hover:text-[#FF4D00]/10 transition-colors duration-1000">SO</div>
-        </motion.div>
-
-        <div className="grid grid-cols-12 gap-10 w-full mt-[10vh]">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 2 }}
-            className="col-span-12 lg:col-start-7 lg:col-span-6 space-y-20"
-          >
-             <h2 className="text-4xl md:text-[6vw] font-['Playfair_Display'] italic text-white/90 leading-[0.9] tracking-tighter">
-                Honoring the <br/> <span className="text-[#FF4D00]">sacred recipes</span> <br/> of the east.
-             </h2>
-             
-             <div className="grid md:grid-cols-2 gap-10">
-                <div className="space-y-8">
-                   <p className="text-white/20 text-xl font-light leading-snug">
-                      Preserving the ephemeral soul of Odisha’s culinary heritage before it is erased by modern industry.
-                   </p>
-                   <button 
-                     onClick={() => scrollTo('#menu')}
-                     className="group h-20 w-full border border-white/10 hover:border-[#FF4D00] flex items-center justify-between px-8 transition-all overflow-hidden relative bg-black/40 backdrop-blur-xl pointer-events-auto cursor-pointer"
-                   >
-                      <div className="absolute inset-0 bg-[#FF4D00] -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
-                      <span className="relative z-10 hud-text group-hover:text-white transition-colors">Start_Preservation</span>
-                      <span className="relative z-10 text-[#FF4D00] group-hover:text-white transition-colors">→</span>
-                   </button>
-                </div>
-                <div className="flex flex-col justify-end gap-2 border-l border-white/5 pl-8">
-                   <span className="hud-text text-[#c9a96e]">Data_Set: 001_A</span>
-                   <span className="hud-text text-white/10 italic">Odia_Heritage_Protocol_Active</span>
-                </div>
-             </div>
-          </motion.div>
-        </div>
+          ODISHA
+        </motion.h1>
       </div>
 
-      {/* Floating Cinematic Food Image (Projection) */}
+      {/* Clay Pot Visual (Sphere) */}
       <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        whileInView={{ opacity: 0.3, x: 0 }}
-        transition={{ delay: 1.5, duration: 2 }}
-        className="absolute top-1/2 right-[-5vw] -translate-y-1/2 w-[40vw] aspect-square pointer-events-none"
+        initial={{ opacity: 0, y: 400 }}
+        animate={{ opacity: 1, y: 150 }}
+        transition={{ duration: 2, ease: [0.19, 1, 0.22, 1] }}
+        className="absolute bottom-0 z-10 w-[70vw] aspect-square rounded-full shadow-[0_50px_100px_rgba(0,0,0,1)]"
+        style={{
+          background: "radial-gradient(circle at 35% 35%, #4a2c0a, #1a0d03, #000000)",
+          boxShadow: "inset -20px -20px 50px rgba(0,0,0,0.8), 0 50px 100px rgba(0,0,0,0.8)"
+        }}
       >
-         <div className="relative w-full h-full border border-white/[0.03] bg-white/[0.01] backdrop-blur-3xl overflow-hidden rounded-full p-20 flex items-center justify-center grayscale opacity-20 group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-2000">
-            <img 
-              src={heroAsset} 
-              alt="Premium Odia Cuisine"
-              className="w-full h-full object-contain mix-blend-screen animate-pulse"
-            />
-         </div>
+         {/* Animated Highlight */}
+         <motion.div 
+           animate={{ opacity: [0.1, 0.3, 0.1] }}
+           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+           className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent pointer-events-none" 
+         />
       </motion.div>
+
+      {/* HUD Labels & Description */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-end p-20 pb-24">
+        <div className="flex justify-between items-end w-full">
+           <div className="flex flex-col gap-1">
+              <span className="mono-label text-white/30 text-[8px]">Platform</span>
+              <span className="mono-label text-white font-bold text-[11px]">Swad Odisha</span>
+           </div>
+           
+           <div className="max-w-[580px] text-center flex flex-col items-center gap-8 mb-4">
+              <p className="text-xl font-bold text-[#f0e6d3] leading-relaxed">
+                Discover authentic Odia cuisine handcrafted by home chefs — from Pakhala Bhata to Chhena Poda, delivered fresh to your door.
+              </p>
+              <div className="w-[120%] h-[1.5px] bg-[var(--border)]" />
+              <BracketButton>SCROLL TO TASTE</BracketButton>
+           </div>
+
+           <div className="flex flex-col gap-1 text-right">
+              <span className="mono-label text-white/30 text-[8px]">Year</span>
+              <span className="mono-label text-white font-bold text-[11px]">2025</span>
+           </div>
+        </div>
+        
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 mono-label text-white/20 text-[8px]">
+          Best Experienced on Desktop
+        </div>
+      </div>
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { SectionLabel } from '../components/SectionLabel';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -38,6 +38,8 @@ export const HowItWorks: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative py-60 bg-[#050301] px-[15vw] overflow-hidden">
+       <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-[var(--border)]" />
+       
        <div className="mb-40">
           <SectionLabel label="05 — TRANSMISSION" />
        </div>
@@ -63,9 +65,9 @@ export const HowItWorks: React.FC = () => {
                   <div className="w-10 h-10 rounded-full border border-[var(--gold)] bg-black flex items-center justify-center relative z-20 transition-all group-hover:shadow-[0_0_20px_var(--gold)]">
                      <span className="mono-label text-[10px] text-[var(--gold)]">{i + 1}</span>
                   </div>
-                  <div className="space-y-2">
-                     <h3 className="text-4xl md:text-6xl font-black">{step.title}</h3>
-                     <p className="mono-label text-white/30">{step.desc}</p>
+                  <div className="space-y-4">
+                     <h3 className="text-7xl md:text-8xl font-black leading-none">{step.title}</h3>
+                     <p className="mono-label text-white/30 text-sm tracking-[0.6em]">{step.desc}</p>
                   </div>
                </motion.div>
              ))}

@@ -1,41 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { SectionLabel } from '../components/SectionLabel';
 
 const STATS = [
-  { label: "Artifacts_Archived", val: 50, suffix: "+" },
-  { label: "Nodes_Active", val: 10, suffix: "+" },
-  { label: "Stability_Index", val: 4.9, suffix: "/5" }
+  { label: "Artifacts_Archived", val: "50+", suffix: "" },
+  { label: "Nodes_Active", val: "10", suffix: "" },
+  { label: "Stability_Index", val: "100", suffix: "%" }
 ];
-
-const Counter = ({ value, suffix }: { value: number, suffix: string }) => {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, latest => {
-    if (value % 1 === 0) return Math.round(latest).toString() + suffix;
-    return latest.toFixed(1) + suffix;
-  });
-  const [displayValue, setDisplayValue] = useState("0");
-
-  useEffect(() => {
-    const controls = animate(count, value, { duration: 2, ease: "easeOut" });
-    return controls.stop;
-  }, [value, count]);
-
-  useEffect(() => {
-    return rounded.onChange(v => setDisplayValue(v));
-  }, [rounded]);
-
-  return <motion.span>{displayValue}</motion.span>;
-};
 
 export const Stats: React.FC = () => {
   return (
-    <section id="stats" className="relative py-60 bg-transparent px-[8vw] overflow-hidden">
-      <div className="absolute top-[20%] left-[-5%] text-[20vw] font-black text-white/[0.01] pointer-events-none select-none leading-none">
+    <section id="stats" className="relative py-60 bg-[#050301] px-[8vw] overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-[var(--border)]" />
+      
+      <div className="absolute top-[20%] left-[-5%] text-[30vw] font-black text-white/[0.01] pointer-events-none select-none leading-none tracking-tighter italic">
         DATA
       </div>
 
-      <div className="relative z-10 space-y-32">
+      <div className="relative z-10 space-y-40">
          <SectionLabel label="07 — METRICS & OUTPUT" />
 
          <div className="grid md:grid-cols-3 gap-20">
@@ -45,13 +27,13 @@ export const Stats: React.FC = () => {
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 1 }}
                 className="space-y-6"
               >
-                 <div className="text-8xl font-black text-white tracking-tighter">
-                    <Counter value={s.val} suffix={s.suffix} />
+                 <div className="text-huge font-black text-[var(--gold)] tracking-tighter">
+                    {s.val}{s.suffix}
                  </div>
-                 <div className="hud-text text-[#FF4D00]">{s.label}</div>
+                 <div className="mono-label text-white/40 tracking-[0.6em]">{s.label}</div>
               </motion.div>
             ))}
          </div>

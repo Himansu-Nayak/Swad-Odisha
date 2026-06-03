@@ -9,8 +9,8 @@ export const StarfieldCanvas: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let stars: { x: number; y: number; opacity: number; size: number; vx: number; vy: number }[] = [];
     let animationFrameId: number;
-    let stars: { x: number; y: number; size: number; opacity: number; vx: number; vy: number }[] = [];
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -24,10 +24,10 @@ export const StarfieldCanvas: React.FC = () => {
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 1.5,
           opacity: Math.random() * 0.3 + 0.3,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: (Math.random() - 0.5) * 0.2
+          size: Math.random() * 1.5,
+          vx: (Math.random() - 0.5) * 0.1,
+          vy: (Math.random() - 0.5) * 0.1
         });
       }
     };
@@ -61,5 +61,5 @@ export const StarfieldCanvas: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
+  return <canvas ref={canvasRef} className="fixed inset-0 z-0 pointer-events-none" />;
 };
