@@ -3,21 +3,50 @@
 @tailwind utilities;
 
 :root {
+  --color-bg:          #080808;
+  --color-bg-card:     #111111;
+  --color-gold:        #c8a96e;
+  --color-gold-dim:    rgba(200, 169, 110, 0.3);
+  --color-text:        rgba(255, 255, 255, 0.85);
+  --color-text-muted:  rgba(255, 255, 255, 0.35);
+  --color-border:      rgba(255, 255, 255, 0.08);
+  --font-display:      'Bebas Neue', sans-serif;
+  --font-ui:           'Space Mono', monospace;
+  --font-body:         'Inter', sans-serif;
+  --z-bg:              0;
+  --z-map:             2;
+  --z-content:         10;
+  --z-sidebar:         20;
+  --z-overlay:         50;
+  --z-nav:             100;
+  --z-modal:           200;
+
   --gold: #c9a96e;
   --gold-dim: rgba(201,169,110,0.3);
   --bg: #050301;
   --text: #f0e6d3;
   --text-dim: rgba(240,230,211,0.5);
-  --font-display: 'Bebas Neue', sans-serif;
   --font-mono: 'Space Mono', monospace;
-  --font-body: 'Inter', sans-serif;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
-html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: auto; background-color: var(--bg); }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  
+  .mono-label {
+    font-family: var(--font-ui);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    color: var(--color-gold);
+  }
+}
 
 /* Utility for Corner ticks */
-.corner { position: absolute; width: 14px; height: 14px; }
+.corner { position: absolute; width: 14px; height: 14px; pointer-events: none; }
 .corner::before { content:''; position:absolute; background: #c9a96e; }
 .corner::after  { content:''; position:absolute; background: #c9a96e; }
 

@@ -9,6 +9,14 @@ export default defineConfig({
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@sections': path.resolve(__dirname, './src/sections'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@context': path.resolve(__dirname, './src/context'),
+      '@types': path.resolve(__dirname, './src/types'),
+      '@constants': path.resolve(__dirname, './src/constants'),
+      '@animations': path.resolve(__dirname, './src/animations'),
+      '@lib': path.resolve(__dirname, './src/lib'),
     },
   },
   build: {

@@ -1,16 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import "./styles/globals.css";
-import { CartProvider } from "./context/CartContext";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
-const lenis = new Lenis({ duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-gsap.ticker.add((time) => lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
 
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
   constructor(props: any) {
@@ -41,9 +36,9 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 }
 
 createRoot(document.getElementById("root")!).render(
-  <ErrorBoundary>
-    <CartProvider>
+  <React.StrictMode>
+    <ErrorBoundary>
       <App />
-    </CartProvider>
-  </ErrorBoundary>
+    </ErrorBoundary>
+  </React.StrictMode>
 );
