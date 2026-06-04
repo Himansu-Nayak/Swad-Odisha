@@ -35,28 +35,29 @@ export const CinematicLoader: React.FC<{ onComplete: () => void }> = ({ onComple
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
            transition={{ duration: 1 }}
-           className="relative w-40 h-40 flex items-center justify-center border border-white/5 bg-white/[0.01] rounded-full overflow-hidden"
+           className="relative w-40 h-40 flex items-center justify-center border border-[var(--gold)]/20 bg-[var(--gold)]/[0.02] rounded-full overflow-hidden"
          >
-            <img 
-              src="/src/assets/c2c54701e32b4d6e1ab653b1bba22bf0ca144a30.png" 
-              className="w-4/5 h-4/5 object-contain mix-blend-screen opacity-20 animate-pulse"
-              alt="Loading Logo"
+            {/* Logo removed as requested */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--gold)]/5 to-transparent" />
+            <motion.div 
+              animate={{ opacity: [0.1, 0.3, 0.1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-full h-full rounded-full border-t border-[var(--gold)]/30"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
          </motion.div>
 
          <div className="flex flex-col items-center gap-4">
-            <div className="font-['Playfair_Display'] text-[#FF4D00] text-3xl font-black tracking-widest uppercase">
+            <div className="font-[var(--font-display)] text-[var(--gold)] text-4xl font-black tracking-[0.2em] uppercase">
               SWAD ODISHA
             </div>
             <div className="w-64 h-[1px] bg-white/10 overflow-hidden relative">
                <motion.div 
-                 className="absolute inset-y-0 left-0 bg-[#FF4D00]"
+                 className="absolute inset-y-0 left-0 bg-[var(--gold)]"
                  style={{ width: `${progress}%` }}
                />
             </div>
             <div className="flex justify-between w-64 px-1">
-               <span className="text-white font-mono text-[9px] font-black tabular-nums">
+               <span className="text-[var(--gold)] font-mono text-[10px] font-black tabular-nums">
                  {Math.floor(progress)}%
                </span>
                <span className="text-white/20 uppercase tracking-[0.4em] text-[8px] font-black italic">

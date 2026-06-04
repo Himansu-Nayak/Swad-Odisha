@@ -142,9 +142,9 @@ export default function OdishaMap() {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <svg
-        viewBox="0 0 500 420"
+        viewBox="-20 -20 540 460" // Expanded viewBox for padding
         xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: '100%', overflow: 'visible' }} // Added overflow: visible
         onMouseLeave={() => setHovered(null)}
       >
         <defs>
@@ -163,10 +163,11 @@ export default function OdishaMap() {
               d={d.path}
               fill={d.color}
               stroke="#c9a96e"
-              strokeWidth={hovered?.id === d.id ? 1.5 : 0.5}
+              strokeWidth={hovered?.id === d.id ? 1.5 : 0.6}
+              strokeOpacity={hovered?.id === d.id ? 1 : 0.4}
               opacity={1}
               filter={hovered?.id === d.id ? 'url(#districtHover)' : undefined}
-              style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+              style={{ cursor: 'pointer', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}
               onMouseEnter={(e) => {
                 setHovered(d)
                 const rect = (e.target as SVGElement).closest('svg')!.getBoundingClientRect()
@@ -180,29 +181,35 @@ export default function OdishaMap() {
           ))}
         </g>
 
-        {districts.map((d) => (
-          <text
-            key={`label-${d.id}`}
-            x={d.labelX}
-            y={d.labelY}
-            textAnchor="middle"
-            fill="#ffffff"
-            fontSize="10"
-            fontFamily="'Space Mono', monospace"
-            fontWeight="700"
-            opacity={hovered?.id === d.id ? 1 : 0.75}
-            style={{ pointerEvents: 'none', userSelect: 'none' }}
-          >
-            {d.name}
-          </text>
-        ))}
+        {districts.map((d) => {
+          // Adjust Khurda label slightly to avoid BBSR dot collision
+          const finalX = d.id === 'khurda' ? d.labelX - 8 : d.labelX;
+          const finalY = d.id === 'khurda' ? d.labelY - 4 : d.labelY;
+          
+          return (
+            <text
+              key={`label-${d.id}`}
+              x={finalX}
+              y={finalY}
+              textAnchor="middle"
+              fill="#ffffff"
+              fontSize="9" // Increased font size
+              fontFamily="'Space Mono', monospace"
+              fontWeight="700"
+              opacity={hovered?.id === d.id ? 1 : 0.8} // Increased default opacity
+              style={{ pointerEvents: 'none', userSelect: 'none', transition: 'all 0.3s ease', textShadow: '0 0 4px rgba(0,0,0,0.8)' }}
+            >
+              {d.name}
+            </text>
+          );
+        })}
 
         {hovered && (
           <text
             x={hovered.labelX}
-            y={hovered.labelY + 14}
+            y={hovered.labelY + 10}
             textAnchor="middle"
-            fontSize="14"
+            fontSize="12"
             style={{ pointerEvents: 'none' }}
           >
             {hovered.foodEmoji}
@@ -210,39 +217,46 @@ export default function OdishaMap() {
         )}
 
         {/* Bhubaneswar dot near Khurda label */}
-        <circle cx="360" cy="210" r="3.5" fill="#c9a96e">
-          <animate attributeName="r" values="2;6;2" dur="2.5s" repeatCount="indefinite"/>
+        <circle cx="360" cy="210" r="2.5" fill="#c9a96e">
+          <animate attributeName="r" values="1.5;4;1.5" dur="2.5s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="1;0.2;1" dur="2.5s" repeatCount="indefinite"/>
         </circle>
-        <circle cx="360" cy="210" r="1.5" fill="#fff"/>
-        <text x="372" y="214" fill="#c9a96e" fontSize="10" fontFamily="'Space Mono', monospace" fontWeight="bold">BBSR</text>
+        <circle cx="360" cy="210" r="1" fill="#fff"/>
+        <text x="366" y="208" fill="#c9a96e" fontSize="7" fontFamily="'Space Mono', monospace" fontWeight="bold">BBSR</text>
       </svg>
 
       <AnimatePresence>
         {hovered && (
           <motion.div
             key={hovered.id}
-            initial={{ opacity: 0, scale: 0.85, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 8 }}
-            transition={{ duration: 0.18 }}
+            initial={{ opacity: 0, scale: 0.9, y: 10, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 0.9, y: 10, filter: 'blur(4px)' }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             style={{
               position: 'absolute',
-              left: tooltipPos.x + 14,
-              top: tooltipPos.y - 40,
+              left: tooltipPos.x + 20,
+              top: tooltipPos.y - 60,
               pointerEvents: 'none',
-              background: 'rgba(5,3,1,0.95)',
-              border: '1.5px solid #c9a96e',
-              padding: '10px 16px',
-              zIndex: 20,
-              whiteSpace: 'nowrap',
+              background: 'rgba(15, 10, 5, 0.85)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(201, 169, 110, 0.5)',
+              borderRadius: '4px',
+              padding: '12px 20px',
+              zIndex: 50,
+              boxShadow: '0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(201, 169, 110, 0.1)',
             }}
           >
-            <p style={{ fontFamily: "'Bebas Neue'", fontSize: '18px', color: '#f0e6d3', margin: 0, letterSpacing: '0.08em' }}>
+            <div style={{ position: 'absolute', top: '-1px', left: '-1px', width: '8px', height: '8px', borderTop: '1.5px solid #c9a96e', borderLeft: '1.5px solid #c9a96e' }} />
+            <div style={{ position: 'absolute', bottom: '-1px', right: '-1px', width: '8px', height: '8px', borderBottom: '1.5px solid #c9a96e', borderRight: '1.5px solid #c9a96e' }} />
+            
+            <p style={{ fontFamily: "'Bebas Neue'", fontSize: '22px', color: '#f0e6d3', margin: 0, letterSpacing: '0.1em', lineHeight: 1 }}>
               {hovered.name}
             </p>
-            <p style={{ fontFamily: "'Space Mono'", fontSize: '11px', color: '#c9a96e', margin: '4px 0 0', letterSpacing: '0.05em' }}>
-              {hovered.foodEmoji} {hovered.food}
+            <div style={{ width: '100%', height: '1px', background: 'rgba(201, 169, 110, 0.3)', margin: '8px 0' }} />
+            <p style={{ fontFamily: "'Space Mono'", fontSize: '12px', color: '#c9a96e', margin: 0, letterSpacing: '0.05em' }}>
+              <span style={{ fontSize: '16px', marginRight: '8px' }}>{hovered.foodEmoji}</span>
+              {hovered.food}
             </p>
           </motion.div>
         )}
