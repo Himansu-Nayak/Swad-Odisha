@@ -6,9 +6,9 @@ import { AboutVisual } from './AboutVisual';
 import { OdissiDancer } from '@/components/shared/OdissiDancerSVG';
 
 const STORY_SEGMENTS = [
-  { text: "ଓଡ଼ିଶାର ପ୍ରତିଟି ରୋଷେଇଘର ଏକ କାହାଣୀ କୁହେ ।", delay: 0 },
-  { text: "ଏହା କେବଳ ଖାଦ୍ୟ ନୁହେଁ, ଏହା ଆମର ପରମ୍ପରା ଓ ସଂସ୍କୃତି ।", delay: 0.8 },
-  { text: "ସ୍ୱାଦ ଓଡ଼ିଶା - ମାଟିର ବାସ୍ନା, ମନର ତୃପ୍ତି ।", delay: 1.6 },
+  { text: "ଓଡ଼ିଶାର ପ୍ରତିଟି ରୋଷେଇଘର ଏକ କାହାଣୀ କୁହେ । 🏠✨", delay: 0 },
+  { text: "ଏହା କେବଳ ଖାଦ୍ୟ ନୁହେଁ, ଏହା ଆମର ପରମ୍ପରା ଓ ସଂସ୍କୃତି । 🌾🏺", delay: 0.8 },
+  { text: "ସ୍ୱାଦ ଓଡ଼ିଶା - ମାଟିର ବାସ୍ନା, ମନର ତୃପ୍ତି । 🥘❤️", delay: 1.6 },
 ];
 
 export const About: React.FC = () => {
