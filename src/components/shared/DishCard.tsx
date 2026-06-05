@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MenuItem } from '@types';
-import { useCart } from '@hooks/useCart';
+import { MenuItem } from '@/types';
+import { useCart } from '@/hooks/useCart';
 
 interface DishCardProps {
   dish: MenuItem;
@@ -17,7 +17,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       whileHover={{ y: -10 }}
-      className="group relative bg-[var(--color-bg-card)] border border-[var(--color-border)] p-6 rounded-lg overflow-hidden transition-all duration-300 hover:border-[var(--color-gold)]"
+      className="group relative bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-lg overflow-hidden transition-all duration-300 hover:border-[var(--gold)]"
     >
       <div className="aspect-square w-full mb-6 overflow-hidden rounded-md bg-zinc-900">
         <img 
@@ -28,13 +28,13 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
       </div>
 
       <div className="flex justify-between items-start mb-2">
-        <h3 className="font-[var(--font-display)] text-2xl text-[var(--color-text)] group-hover:text-[var(--color-gold)] transition-colors">
+        <h3 className="font-[var(--font-display)] text-2xl text-[var(--text)] group-hover:text-[var(--gold)] transition-colors">
           {dish.name}
         </h3>
-        <span className="text-[var(--color-gold)] font-mono text-sm">₹{dish.price}</span>
+        <span className="text-[var(--gold)] font-mono text-sm">₹{dish.price}</span>
       </div>
 
-      <p className="text-[var(--color-text-muted)] text-sm mb-6 line-clamp-2 font-[var(--font-body)]">
+      <p className="text-[var(--text-muted)] text-sm mb-6 line-clamp-2 font-[var(--font-body)]">
         {dish.description}
       </p>
 
@@ -53,7 +53,7 @@ export const DishCard: React.FC<DishCardProps> = ({ dish }) => {
 
       <button 
         onClick={() => addToCart(dish)}
-        className="w-full py-3 border border-[var(--color-gold)] text-[var(--color-gold)] text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-[var(--color-gold)] hover:text-black transition-all duration-300"
+        className="w-full py-3 border border-[var(--gold)] text-[var(--gold)] text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-[var(--gold)] hover:text-black transition-all duration-300"
       >
         Add to Order
       </button>

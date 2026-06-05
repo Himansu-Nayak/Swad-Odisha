@@ -25,10 +25,11 @@ export interface CartItem extends MenuItem {
 export interface Chef {
   id: string
   name: string
-  district: string
+  district?: string
+  city?: string
   specialty: string
-  rating: number
-  image: string
+  rating?: number
+  image?: string
   bio: string
 }
 
@@ -58,11 +59,28 @@ export interface ProcessStep {
   id: number
   title: string
   desc: string
-  icon: any
+  icon?: any
 }
 
 export interface TechStackItem {
   name: string
   category: string
   icon: string
+}
+
+export interface CartContextType {
+  cart: CartItem[];
+  addToCart: (item: MenuItem) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, delta: number) => void;
+  clearCart: () => void;
+  cartTotal: number;
+  cartCount: number;
+}
+
+export interface AuthContextType {
+  user: User | null;
+  login: (email: string, name: string) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
 }

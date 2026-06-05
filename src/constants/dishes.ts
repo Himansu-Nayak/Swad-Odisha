@@ -1,4 +1,4 @@
-import { MenuItem } from '../types';
+import { MenuItem, Chef } from '../types';
 
 export const DISHES: MenuItem[] = [
   {
@@ -84,4 +84,28 @@ export const DISHES_DISPLAY = [
   { name:'Arisha Pitha', origin:'Festive · Statewide', price:'₹120', emoji:'🫓' },
   { name:'Saga Bhaja', origin:'Everyday · Odisha', price:'₹50', emoji:'🌿' },
   { name:'Rasabali', origin:'Kendrapara · Temple', price:'₹65', emoji:'🍯' },
+];
+
+export const CHEFS: Chef[] = [
+  { 
+    id: 'kamala',
+    name: 'Kamala Devi', 
+    city: 'Bhubaneswar', 
+    specialty: 'Pitha & Sweets',
+    bio: 'Preserving the age-old traditions of Odia sweets for over 30 years.'
+  },
+  { 
+    id: 'sarat',
+    name: 'Sarat Panda', 
+    city: 'Cuttack', 
+    specialty: 'Seafood',
+    bio: 'Expert in coastal Odia delicacies, bringing the ocean to your plate.'
+  },
+  { 
+    id: 'priya',
+    name: 'Priya Mohanty', 
+    city: 'Puri', 
+    specialty: 'Mithai',
+    bio: 'Crafting divine offerings inspired by the Jagannath Temple cuisine.'
+  }
 ];

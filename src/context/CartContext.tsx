@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { CartItem, MenuItem } from '@types';
+import { CartItem, MenuItem } from '@/types';
 
 interface CartContextType {
   cart: CartItem[];

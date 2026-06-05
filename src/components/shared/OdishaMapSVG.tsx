@@ -1,6 +1,6 @@
 import React from 'react';
-import { District } from '@types';
-import { DISTRICTS } from '@constants';
+import { District } from '@/types';
+import { DISTRICTS } from '@/constants';
 
 interface OdishaMapSVGProps {
   interactive?: boolean;
@@ -40,10 +40,10 @@ export const OdishaMapSVG: React.FC<OdishaMapSVGProps> = ({
           <path
             key={d.id}
             d={d.path}
-            fill={highlightedDistrict === d.id ? '#c9a96e' : d.color}
-            stroke="#c9a96e"
-            strokeWidth={highlightedDistrict === d.id ? 1.5 : 0.6}
-            strokeOpacity={highlightedDistrict === d.id ? 1 : 0.4}
+            fill={highlightedDistrict === d.id ? '#c8a96e' : d.color}
+            stroke="#c8a96e"
+            strokeWidth={highlightedDistrict === d.id ? 1.5 : 0.8}
+            strokeOpacity={highlightedDistrict === d.id ? 1 : 0.6}
             opacity={1}
             filter={highlightedDistrict === d.id ? 'url(#districtHover)' : undefined}
             style={{ 
@@ -85,12 +85,12 @@ export const OdishaMapSVG: React.FC<OdishaMapSVGProps> = ({
       })}
 
       {/* Bhubaneswar dot near Khurda label */}
-      <circle cx="360" cy="210" r="2.5" fill="#c9a96e">
+      <circle cx="360" cy="210" r="2.5" fill="#c8a96e">
         <animate attributeName="r" values="1.5;4;1.5" dur="2.5s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="1;0.2;1" dur="2.5s" repeatCount="indefinite"/>
       </circle>
       <circle cx="360" cy="210" r="1" fill="#fff"/>
-      <text x="366" y="208" fill="#c9a96e" fontSize="7" fontFamily="'Space Mono', monospace" fontWeight="bold">BBSR</text>
+      <text x="366" y="208" fill="#c8a96e" fontSize="7" fontFamily="'Space Mono', monospace" fontWeight="bold">BBSR</text>
     </svg>
   );
 };
