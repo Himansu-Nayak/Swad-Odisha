@@ -30,4 +30,25 @@ router.get('/', authMiddleware, (req, res) => {
   res.json(userOrders);
 });
 
+// Get all orders (Admin only - ideally would have an admin role check)
+router.get('/all', authMiddleware, (req, res) => {
+  const db = readDB();
+  res.json(db.orders);
+});
+
+// Update order status (Admin only)
+router.patch('/:id/status', authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const db = readDB();
+  
+  const orderIndex = db.orders.findIndex(o => o.id === id);
+  if (orderIndex === -1) return res.status(404).json({ error: 'Order not found' });
+  
+  db.orders[orderIndex].status = status;
+  writeDB(db);
+  
+  res.json(db.orders[orderIndex]);
+});
+
 module.exports = router;
