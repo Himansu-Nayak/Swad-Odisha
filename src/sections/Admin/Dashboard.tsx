@@ -1,0 +1,199 @@
+import React, { useState, useEffect } from 'react';
+import { MenuItem } from '@/types';
+import { Plus, Edit2, Trash2, Save, X, UtensilsCrossed } from 'lucide-react';
+
+const API_URL = 'http://localhost:5000/api/menu';
+
+export const AdminDashboard: React.FC = () => {
+  const [dishes, setDishes] = useState<MenuItem[]>([]);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState<Partial<MenuItem>>({});
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchDishes();
+  }, []);
+
+  const fetchDishes = async () => {
+    try {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      setDishes(data);
+      setLoading(false);
+    } catch (err) {
+      console.error('Failed to fetch:', err);
+      setLoading(false);
+    }
+  };
+
+  const handleEdit = (dish: MenuItem) => {
+    setEditingId(dish.id);
+    setEditForm(dish);
+  };
+
+  const handleSave = async (id: string) => {
+    const token = localStorage.getItem('swad_token');
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editForm)
+      });
+      if (res.ok) {
+        setEditingId(null);
+        fetchDishes();
+      }
+    } catch (err) {
+      console.error('Failed to save:', err);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this item?')) return;
+    
+    const token = localStorage.getItem('swad_token');
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (res.ok) fetchDishes();
+    } catch (err) {
+      console.error('Failed to delete:', err);
+    }
+  };
+
+  const handleAdd = async () => {
+    const token = localStorage.getItem('swad_token');
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editForm)
+      });
+      if (res.ok) {
+        setShowAddForm(false);
+        setEditForm({});
+        fetchDishes();
+      }
+    } catch (err) {
+      console.error('Failed to add:', err);
+    }
+  };
+
+  if (loading) return <div className="text-white p-20 font-mono">LOADING DATABASE...</div>;
+
+  return (
+    <div className="min-h-screen bg-[#080808] text-white p-8 pt-24 font-sans">
+      <div className="max-w-6xl mx-auto">
+        <header className="flex justify-between items-center mb-12 border-b border-white/10 pb-6">
+          <div className="flex items-center gap-4">
+            <UtensilsCrossed className="text-[#c8a96e]" size={32} />
+            <div>
+              <h1 className="text-3xl font-serif italic tracking-tight">Menu Management</h1>
+              <p className="text-xs font-mono text-white/40 uppercase tracking-widest mt-1">Admin Control Panel</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => { setShowAddForm(true); setEditForm({ category: 'curry', isVeg: true }); }}
+            className="flex items-center gap-2 bg-[#c8a96e] text-black px-6 py-3 rounded-sm font-mono text-xs font-bold hover:bg-[#d4b882] transition-colors"
+          >
+            <Plus size={16} /> ADD NEW DISH
+          </button>
+        </header>
+
+        {showAddForm && (
+          <div className="mb-12 bg-white/5 border border-[#c8a96e]/30 p-8 rounded-sm">
+            <h2 className="text-xl font-serif mb-6">Create New Menu Item</h2>
+            <div className="grid grid-cols-2 gap-6">
+              <input 
+                placeholder="Dish Name" 
+                className="bg-black border border-white/10 p-3 rounded-sm outline-none focus:border-[#c8a96e]"
+                value={editForm.name || ''}
+                onChange={e => setEditForm({...editForm, name: e.target.value})}
+              />
+              <input 
+                placeholder="Price (₹)" 
+                type="number"
+                className="bg-black border border-white/10 p-3 rounded-sm outline-none focus:border-[#c8a96e]"
+                value={editForm.price || ''}
+                onChange={e => setEditForm({...editForm, price: Number(e.target.value)})}
+              />
+              <select 
+                className="bg-black border border-white/10 p-3 rounded-sm outline-none focus:border-[#c8a96e]"
+                value={editForm.category}
+                onChange={e => setEditForm({...editForm, category: e.target.value as any})}
+              >
+                <option value="rice">Rice</option>
+                <option value="curry">Curry</option>
+                <option value="sweet">Sweet</option>
+                <option value="snack">Snack</option>
+                <option value="drink">Drink</option>
+              </select>
+              <input 
+                placeholder="Image URL" 
+                className="bg-black border border-white/10 p-3 rounded-sm outline-none focus:border-[#c8a96e]"
+                value={editForm.image || ''}
+                onChange={e => setEditForm({...editForm, image: e.target.value})}
+              />
+              <textarea 
+                placeholder="Description" 
+                className="bg-black border border-white/10 p-3 rounded-sm outline-none focus:border-[#c8a96e] col-span-2 h-24"
+                value={editForm.description || ''}
+                onChange={e => setEditForm({...editForm, description: e.target.value})}
+              />
+            </div>
+            <div className="flex gap-4 mt-8">
+              <button onClick={handleAdd} className="bg-[#c8a96e] text-black px-8 py-3 rounded-sm font-bold text-xs font-mono">SAVE DISH</button>
+              <button onClick={() => setShowAddForm(false)} className="bg-white/10 px-8 py-3 rounded-sm text-xs font-mono">CANCEL</button>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 gap-4">
+          {dishes.map(dish => (
+            <div key={dish.id} className="bg-white/5 border border-white/5 p-6 flex items-center justify-between hover:border-white/10 transition-all">
+              {editingId === dish.id ? (
+                <div className="flex-1 grid grid-cols-3 gap-4 mr-8">
+                  <input value={editForm.name} onChange={e => setEditForm({...editForm, name: e.target.value})} className="bg-black border border-white/20 p-2 text-sm" />
+                  <input value={editForm.price} onChange={e => setEditForm({...editForm, price: Number(e.target.value)})} className="bg-black border border-white/20 p-2 text-sm" />
+                  <div className="flex gap-2">
+                    <button onClick={() => handleSave(dish.id)} className="p-2 bg-[#c8a96e] text-black rounded-sm"><Save size={18} /></button>
+                    <button onClick={() => setEditingId(null)} className="p-2 bg-white/10 rounded-sm"><X size={18} /></button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-6">
+                    <img src={dish.image} className="w-16 h-16 object-cover rounded-sm grayscale hover:grayscale-0 transition-all" alt={dish.name} />
+                    <div>
+                      <h3 className="text-lg font-serif">{dish.name}</h3>
+                      <p className="text-xs text-[#c8a96e] font-mono uppercase tracking-widest">{dish.category} • ₹{dish.price}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <button onClick={() => handleEdit(dish)} className="p-2 border border-white/10 rounded-sm text-white/40 hover:text-white hover:border-white/20 transition-all">
+                      <Edit2 size={16} />
+                    </button>
+                    <button onClick={() => handleDelete(dish.id)} className="p-2 border border-white/10 rounded-sm text-red-500/40 hover:text-red-500 hover:border-red-500/20 transition-all">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

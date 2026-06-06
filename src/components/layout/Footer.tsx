@@ -13,6 +13,9 @@ export const Footer: React.FC = () => {
       <p className="font-mono text-[11px] text-[var(--text-muted)] tracking-[0.1em] mt-5 uppercase">
         © 2025 HIMANSU NAYAK · MCA FINAL YEAR · RCM BHUBANESWAR
       </p>
+      <a href="/admin" className="text-[var(--gold-dim)] hover:text-[var(--gold)] font-mono text-[9px] uppercase tracking-widest transition-colors">
+        Admin Access
+      </a>
     </footer>
   );
 };

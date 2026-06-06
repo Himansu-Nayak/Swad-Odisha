@@ -1,5 +1,5 @@
-import { CartProvider } from '@/context/CartContext'
-import { AuthProvider } from '@/context/AuthContext'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { CartProvider, AuthProvider, OrderProvider } from '@/context'
 import { useLenis } from '@/hooks/useLenis'
 import { Hero } from '@/sections/Hero'
 import { About } from '@/sections/About'
@@ -16,8 +16,9 @@ import { CheckoutModal } from '@/sections/Checkout/CheckoutModal'
 
 import { CulturalBackground } from '@/components/shared/CulturalBackground'
 import { CustomCursor } from '@/components/shared/CustomCursor'
+import { AdminDashboard } from '@/sections/Admin/Dashboard'
 
-function AppInner() {
+function HomePage() {
   useLenis()
   return (
     <main className="relative">
@@ -41,12 +42,25 @@ function AppInner() {
   )
 }
 
+function AppInner() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+    </Routes>
+  )
+}
+
 export default function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <AppInner />
-      </CartProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <CartProvider>
+          <OrderProvider>
+            <AppInner />
+          </OrderProvider>
+        </CartProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }

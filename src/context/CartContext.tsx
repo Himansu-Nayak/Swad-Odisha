@@ -14,7 +14,17 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('swad_odisha_cart');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('swad_odisha_cart', JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (item: MenuItem) => {
     setCart((prev) => {

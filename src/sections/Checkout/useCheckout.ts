@@ -1,17 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Address } from '@/types';
 
 export type CheckoutStep = 'address' | 'payment' | 'confirmed';
 export type PaymentMethod = 'cod' | 'emi' | 'upi' | 'card';
-
-export interface Address {
-  name: string;
-  phone: string;
-  email: string;
-  line1: string;
-  line2: string;
-  city: string;
-  pincode: string;
-}
 
 export interface EMIPlan {
   months: number;

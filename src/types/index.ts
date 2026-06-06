@@ -3,6 +3,16 @@ export interface User {
   email: string
 }
 
+export interface Address {
+  name: string;
+  phone: string;
+  email: string;
+  line1: string;
+  line2: string;
+  city: string;
+  pincode: string;
+}
+
 export interface MenuItem {
   id: string
   name: string

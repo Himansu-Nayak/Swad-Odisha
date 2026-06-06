@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCheckout } from './useCheckout';
 import { useCart } from '@/hooks/useCart';
-import { motion } from 'framer-motion';
-import { Check, Banknote, MapPin, Clock, CreditCard } from 'lucide-react';
+import { useOrders } from '@/context/OrderContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, Banknote, MapPin, Clock, CreditCard, ChevronRight, Package, Flame, ChefHat, Truck, Home } from 'lucide-react';
+import { OrderTracking } from './OrderTracking';
 
 export const OrderConfirmed: React.FC = () => {
   const { orderId, address, paymentMethod, selectedEMIPlan, close, reset } = useCheckout();
-  const { clearCart, cartTotal } = useCart();
+  const { clearCart, cart, cartTotal } = useCart();
+  const { addOrder } = useOrders();
+  const [showTracking, setShowTracking] = useState(false);
+  const orderAdded = useRef(false);
 
   const subtotal = cartTotal;
   const deliveryFee = subtotal >= 499 ? 0 : 49;
@@ -15,16 +20,28 @@ export const OrderConfirmed: React.FC = () => {
   const total = subtotal + deliveryFee + packagingFee + taxes;
 
   useEffect(() => {
-    // We could clear cart here, but the prompt says to clear it on "Back to Home" click.
-    // However, usually we clear it once order is placed.
-    // I'll stick to the prompt's instruction for the button click.
-  }, []);
+    if (orderId && !orderAdded.current) {
+      addOrder({
+        id: orderId,
+        items: [...cart],
+        total: total,
+        status: 'Received',
+        timestamp: Date.now(),
+        address: address
+      });
+      orderAdded.current = true;
+    }
+  }, [orderId, cart, total, address, addOrder]);
 
   const handleBackToHome = () => {
     clearCart();
     reset();
     close();
   };
+
+  if (showTracking) {
+    return <OrderTracking orderId={orderId} onBack={() => setShowTracking(false)} onHome={handleBackToHome} />;
+  }
 
   return (
     <div style={{ 
@@ -171,19 +188,18 @@ export const OrderConfirmed: React.FC = () => {
 
       <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
         <button 
-          title="Coming soon"
-          disabled
+          onClick={() => setShowTracking(true)}
           style={{
             flex: 1,
             padding: '14px',
             background: 'transparent',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: 'rgba(255,255,255,0.3)',
+            border: '1px solid #c8a96e',
+            color: '#c8a96e',
             borderRadius: '4px',
             fontFamily: 'Courier New, monospace',
             textTransform: 'uppercase',
             fontSize: '11px',
-            cursor: 'not-allowed'
+            cursor: 'pointer'
           }}
         >
           Track Order
